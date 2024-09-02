@@ -61,17 +61,19 @@
 
 1. [**Azure Open AI リソースの作成**](Ex01.md)
 
-    - [タスク 1 : Azure ポータルから Open AI リソースを作成する]()
+    - [タスク 1 : Azure ポータルから Open AI リソースを作成する](Ex01.md#%E3%82%BF%E3%82%B9%E3%82%AF-1--azure-%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%AB%E3%81%8B%E3%82%89-open-ai-%E3%83%AA%E3%82%BD%E3%83%BC%E3%82%B9%E3%82%92%E4%BD%9C%E6%88%90)
 
-    - [タスク 2 : Azure OpenAI Studio からのモデルのデプロイ]()
+    - [タスク 2 : Azure OpenAI Studio から言語モデル gpt-4o-mini のデプロイ](Ex01.md#%E3%82%BF%E3%82%B9%E3%82%AF-2--azure-openai-studio-%E3%81%B8%E3%81%AE%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4)
 
-        - [言語モデル : gpt-4o-mini]()
-	    - [画像生成モデル : dall-e-3]()
-	    - [埋め込みモデル : text-embedding-ada-002]()
+    - [タスク 3 : Azure OpenAI Studio から埋め込みモデル : text-embedding-ada-002 のデプロイ](Ex01.md#%E3%82%BF%E3%82%B9%E3%82%AF-3--%E5%9F%8B%E3%82%81%E8%BE%BC%E3%81%BF%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4)
 
-2. [**Azure OpenAI Studio からの利用**]()
-    - [タスク 1 : パラメーター設定とブロンプト エンジニアリング ](Ex02.md)
-    - [タスク 2 : 独自データの追加]()
+    - [タスク 4 : Azure OpenAI Studio から画像生成モデル : dall-e-3 のデプロイ](x01.md#%E3%82%BF%E3%82%B9%E3%82%AF-4--%E7%94%BB%E5%83%8F%E7%94%9F%E6%88%90%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4)
+	    
+
+2. [**Azure OpenAI Studio からの利用**](Ex02.md)
+    - [タスク 1 : パラメーター設定]()
+    - [タスク 2 :ブロンプト エンジニアリング ]()
+    - [タスク 3 : 独自データの追加]()
     - [オプション : Azure OpenAI Studio で作成したチャットボットを Azure App Service にデプロイ]()
 
 3. [**Azure Open AI サービスとアプリケーションの統合**](Ex03.md)
