@@ -2,8 +2,8 @@
 const { AzureOpenAI } = require("openai");
 const dotenv = require("dotenv");
 dotenv.config();
-
 //[PLACEHOLDER:require funcs.js]
+//[PLACEHOLDER:require imgGen.js] 
 
 const endpoint = process.env["AZURE_OPENAI_ENDPOINT"] ;
 const apiKey = process.env["AZURE_OPENAI_API_KEY"] ;

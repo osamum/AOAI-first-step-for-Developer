@@ -45,3 +45,6 @@ async function getGitHubUserinfo(userName) {
 getGitHubUserinfo('octocat')
     .then(userInfo => console.log(userInfo))
     .catch(error => console.error('Error fetching GitHub user info:', error));
+
+//外部から関数 getCurrentDatetime,getGitHubUserinfo を利用できるようにする
+//module.exports = {getCurrentDatetime,getGitHubUserinfo};
