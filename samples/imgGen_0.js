@@ -31,4 +31,4 @@ ganarateImage("賢いイルカのアシスタントを描いてください")
 
 
 //関数を外部から呼び出せるようにするための設定
-module.exports = ganarateImage;
+module.exports = {ganarateImage};
