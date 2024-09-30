@@ -62,11 +62,8 @@
 1. [**Azure Open AI リソースの作成**](Ex01-0.md)
 
     - [1.1 : Azure ポータルから Open AI リソースを作成する](Ex01-1.md)
-
     - [1.2 : Azure OpenAI Studio から言語モデル gpt-4o-mini のデプロイ](Ex01-2.md)
-
     - [1.3 : Azure OpenAI Studio から埋め込みモデル : text-embedding-ada-002 のデプロイ](Ex01-3.md)
-
     - [1.4 : Azure OpenAI Studio から画像生成モデル : dall-e-3 のデプロイ](Ex01-4.md)
 	    
 2. [**Azure OpenAI Studio からの AI モデルの利用**](Ex02-0.md)
@@ -75,7 +72,7 @@
     - [2.3 : 独自データの追加](Ex02-3.md)
     - [オプション : Azure OpenAI Studio で作成したチャットボットを Azure App Service にデプロイ](Ex02-3.md#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3--azure-openai-studio-%E3%81%A7%E4%BD%9C%E6%88%90%E3%81%97%E3%81%9F%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88%E3%82%92-azure-app-service-%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4)
 
-3. [**Azure Open AI サービスとアプリケーションの統合**](Ex03.md)
+3. [**Azure Open AI サービスとアプリケーションの統合**](Ex03-0.md)
 
     - [3.1 : Azure Open AI サービスの API 利用](Ex03-1.md)
         - [タスク 1 : curl コマンドによる呼び出しの確認](Ex03-1.md#%E3%82%BF%E3%82%B9%E3%82%AF-1---curl-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%AB%E3%82%88%E3%82%8B%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8D)
@@ -99,7 +96,7 @@
     - [3. 5 : 言語モデルの応答に JSON を指定する](Ex03-5.md)
 
         - [タスク 1 : HTTP Client ツールによる呼び出しの確認(Structured Outputs)](Ex03-5.md#%E3%82%BF%E3%82%B9%E3%82%AF-1--http-client-%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8Dstructured-outputs)
-        - [タスク 2 : JavaScript コードからの呼び出しの確認]()
+        - [タスク 2 : JavaScript コードからの呼び出しの確認](Ex03-5.md#%E3%82%BF%E3%82%B9%E3%82%AF-2--javascript-%E3%82%B3%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E3%81%AE%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8D)
 
 
 3. [**演習用ボットのアプリケーション フレームワークへの移植**](Ex03.md)
