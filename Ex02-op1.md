@@ -43,3 +43,20 @@ Azure OpenAI Studio のチャット プレイグランドで動作している�
 
 ここまでの手順で、Azure OpenAI Studio で作成したチャットボットを Azure App Service にデプロイし、Web ブラウザーを介してユーザーがアクセスできるようになりました。
 
+この機能の詳細については以下のドキュメントをご参照ください。
+
+* [**Azure OpenAI Web アプリを使う**](https://learn.microsoft.com/ja-jp/azure/ai-services/openai/how-to/use-web-app)
+
+<br>
+
+## 次のステップ
+
+👉 [**演習 3: Azure Open AI サービスとアプリケーションの統合**](Ex03-0.md)
+
+<br>
+
+<hr>
+
+👈 [**演習 2. 3 : 独自データの追加**](Ex02-3.md)
+
+🏚️ [README に戻る](README.md)
