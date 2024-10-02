@@ -37,7 +37,7 @@ Azure OpenAI Studio のチャット プレイグランドで動作している�
 
     ![Chatbot on Azure App Service](images/AOAIStudio_Deployed_appService.png)
 
-    また、[タスク 3: 独自データの追加](#%E3%82%BF%E3%82%B9%E3%82%AF-3--%E7%8B%AC%E8%87%AA%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E8%BF%BD%E5%8A%A0) で追加したデータも回答として返ることを確認してください。
+    また、[演習2.3](Ex02-3.md#%E3%83%81%E3%83%A3%E3%83%83%E3%83%88-%E3%83%97%E3%83%AC%E3%82%A4%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%89%E7%94%BB%E9%9D%A2%E3%81%8B%E3%82%89%E7%8B%AC%E8%87%AA%E3%81%AE%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B) で追加したデータも回答として返ることを確認してください。
     
     この Web アプリケーションは Azure App Service の自動認証が有効になっており、Azure Active Directory よって保護されています。そのため同じ Azure Active Directory テナントにログインしているユーザーだけが使用することができます。
 
