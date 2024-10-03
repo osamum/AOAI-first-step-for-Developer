@@ -27,7 +27,7 @@ async function sendMessage(message) {
     });
 
     for (const choice of result.choices) {
-        //[REPLACE:functionCalling if{}]
+         //[REPLACE:all code in for{}]
         const resposeMessage = choice.message.content;
         addMessage({ role: 'assistant', content: resposeMessage });
         return resposeMessage;

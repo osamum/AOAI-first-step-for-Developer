@@ -25,11 +25,12 @@ async function sendMessage(message) {
     });
 
     for (const choice of result.choices) {
-
         if (choice.message.tool_calls) {
             return sendFunctionResult(choice.message);
         } else {
-            return choice.message.content;
+            const resposeMessage = choice.message.content;
+            addMessage({ role: 'assistant', content: resposeMessage });
+            return resposeMessage;
         }
     }
 }
