@@ -13,10 +13,12 @@ const deployment = "gpt-4o-mini";
 var messages = [
     { role: "system", content: "You are an useful assistant." },
 ];
+//保持する会話の個数
+const messagesLength = 10;
 
 //Azure OpenAI にメッセージを送信する関数
 async function sendMessage(message) {
-    if(message) messages.push({ role: 'user', content: message });
+    if(message) addMessage({ role: 'user', content: message });
     const client = new AzureOpenAI({ endpoint, apiKey, apiVersion, deployment });
     const result = await client.chat.completions.create({
         messages: messages,
@@ -25,10 +27,17 @@ async function sendMessage(message) {
     });
 
     for (const choice of result.choices) {
-
         //[REPLACE:functionCalling if{}]
-        return choice.message.content;
+        const resposeMessage = choice.message.content;
+        addMessage({ role: 'assistant', content: resposeMessage });
+        return resposeMessage;
     }
+}
+
+//保持する会話の個数を調整する関数
+function addMessage(message) {
+    if(messages.length >= messagesLength) messages.splice(1,1);
+    messages.push(message);
 }
 
 module.exports = {sendMessage};

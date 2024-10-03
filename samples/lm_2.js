@@ -13,10 +13,12 @@ const deployment = "gpt-4o-mini";
 var messages = [
     { role: "system", content: "You are an useful assistant." },
 ];
+//保持する会話の個数
+const messagesLength = 10;
 
 //Azure OpenAI にメッセージを送信する関数
 async function sendMessage(message) {
-    if(message) messages.push({ role: 'user', content: message });
+    if(message) addMessage({ role: 'user', content: message });
     const client = new AzureOpenAI({ endpoint, apiKey, apiVersion, deployment });
     const result = await client.chat.completions.create({
         messages: messages,
@@ -29,20 +31,18 @@ async function sendMessage(message) {
         if (choice.message.tool_calls) {
             return sendFunctionResult(choice.message);
         }else{
-            return choice.message.content;
+            const resposeMessage = choice.message.content;
+            addMessage({ role: 'assistant', content: resposeMessage });
+            return resposeMessage;
         }
     }
 }
 
-//[DELETE:Integration ml.js]
-//結果を確認するための即時実行関数
-/*
-(async () => {
-    const message = 'あなたに誕生日はありますか?';
-    const reply = await sendMessage(message);
-    console.log(reply);
-})();
-*/
+//保持する会話の個数を調整する関数
+function addMessage(message) {
+    if(messages.length >= messagesLength) messages.splice(1,1);
+    messages.push(message);
+}
 
 module.exports = {sendMessage};
 
@@ -101,7 +101,7 @@ async function sendFunctionResult(returnMessage){
     const args = JSON.parse(toolCall.function.arguments);
     const functionResponse = await routingFunctions(toolCall.function.name, args);
 
-    messages.push({
+    addMessage({
       role: "function",
       name: toolCall.function.name,
       content: functionResponse,

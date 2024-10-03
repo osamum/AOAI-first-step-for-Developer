@@ -18,7 +18,7 @@ const messagesLength = 10;
 
 //Azure OpenAI にメッセージを送信する関数
 async function sendMessage(message) {
-    if(message) addMessages({ role: 'user', content: message });
+    if(message) addMessage({ role: 'user', content: message });
     const client = new AzureOpenAI({ endpoint, apiKey, apiVersion, deployment });
     const result = await client.chat.completions.create({
         messages: messages,
@@ -29,18 +29,18 @@ async function sendMessage(message) {
     for (const choice of result.choices) {
         //[REPLACE:functionCalling if{}]
         const resposeMessage = choice.message.content;
-        addMessages({ role: 'assistant', content: resposeMessage });
+        addMessage({ role: 'assistant', content: resposeMessage });
         return resposeMessage;
     }
 }
 
 //保持する会話の個数を調整する関数
-function addMessages(message) {
+function addMessage(message) {
     if(messages.length >= messagesLength) messages.splice(1,1);
     messages.push(message);
 }
 
-//[DELETE:Integration ml.js]
+//[DELETE:Integration lm.js]
 //結果を確認するための即時実行関数
 (async () => {
     const message = 'あなたに誕生日はありますか?';
