@@ -55,12 +55,15 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
 
 このチュートリアルを実施するには以下の環境が必要です。
 
-- **[Microsoft Azure サブスクリプション](https://azure.microsoft.com/ja-jp/free/) と Azure Open AI サービスの[利用資格](https://aka.ms/oaiapply)**
+- [**Microsoft Azure サブスクリプション**](https://azure.microsoft.com/ja-jp/free/) 
+
+<!--
+と Azure Open AI サービスの[利用資格](https://aka.ms/oaiapply)**
 
     >【重要】現在、Azure Open AI の利用は Microsoft と既存のパートナーシップ関係があるお客様、リスクの低いユース ケース、軽減策の取り入れに取り組んでいるお客様に制限されており、**利用には申請が必要**です。申請については、以下の申請フォームに記載されています。 利用を開始するにはこちらからお申し込みください。
 
     - [**Azure OpenAI Service へのアクセス申請**](https://aka.ms/oaiapply)
-
+-->
 
 - [**Visual Studio Code**](https://code.visualstudio.com/)
 
