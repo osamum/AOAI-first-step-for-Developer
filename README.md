@@ -49,7 +49,7 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
 
 * **Visual Studio Code を使用したコーディング経験**
 
-    このチュートリアルでは、Visual Studio Code を使用して Bot Framework ボットアプリケーションを作成します。Visual Studio Code でのコーディング経験が必要です。
+    このチュートリアルでは、Visual Studio Code を使用して演習用ボットアプリケーションを作成します。Visual Studio Code でのコーディング経験が必要です。
 
 ## 要件
 
