@@ -125,6 +125,8 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
         - [タスク 1 : HTTP Client ツールによる呼び出しの確認(Structured Outputs)](Ex03-5.md#%E3%82%BF%E3%82%B9%E3%82%AF-1--http-client-%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8Dstructured-outputs)
         - [タスク 2 : JavaScript コードからの呼び出しの確認](Ex03-5.md#%E3%82%BF%E3%82%B9%E3%82%AF-2--javascript-%E3%82%B3%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E3%81%AE%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8D)
 
+    - [3. 6 : 演習用ボットをコンソール アシスタントとして利用する](Ex03-06.md)
+
 
 3. [**演習用ボットのアプリケーション フレームワークへの移植**](Ex04-0.md)
 
