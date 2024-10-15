@@ -28,11 +28,12 @@ async function getEmbedding(text) {
 
 //問い合わせメッセージを受け取って検索を実行す
 async function findIndex(queryText) {
+    const thresholdScore = 5.5;
     const embedding = await getEmbedding(queryText);
     const result = await searchWithVectorQuery(embedding, queryText);
-
-    //スコアが 8 以上の場合は、検索結果を付加して言語モデルに回答の生成を依頼するメッセージを返す
-    if (result.score >= 8) {
+    //スコアがしきい値以上の場合は、検索結果を付加して言語モデルに回答の生成を依頼するメッセージを返す
+    //意図した判断とならない場合は、console.log(result.score) でスコアを確認して thresholdScore の値を調整
+    if (result != null && result.score >= thresholdScore) {
         return `以下の [question] の内容に対し、[content]の内容を使用して回答してください\n\n[question]\n${queryText}\n\n[content]\n${result.document.content}`
     } else {
         return queryText;
