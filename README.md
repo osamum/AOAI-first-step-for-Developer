@@ -139,6 +139,8 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
     
     - [4.オプション : Microsoft Teams へのインストール](Ex04-op-1.md)
 
+*  [ハンズオン終了後の目的別学習コンテンツ紹介](NextLearn.md)
+
 <br>
 
 
