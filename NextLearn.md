@@ -76,6 +76,21 @@
 
     ノーコードでナレッジマイニングを存分に体験することができるハンズオンコンテンツです。Azure AI Search の検索機能を重点的に理解することにフォーカスを当てています。
 
+### セキュリティについて
+
+* [Azure OpenAI の Azure セキュリティ ベースライン](https://learn.microsoft.com/ja-jp/security/benchmark/azure/baselines/azure-openai-security-baseline)
+
+    このセキュリティ ベースラインは、 [Microsoft クラウド セキュリティ ベンチマーク バージョン 1.0](https://learn.microsoft.com/ja-jp/security/benchmark/azure/overview) のガイダンスを Azure OpenAI に適用するものです。 Microsoft クラウド セキュリティ ベンチマークでは、Azure 上のクラウド ソリューションをセキュリティで保護する方法に関する推奨事項が提供されます。 
+
+* [データに対して Azure OpenAI を安全に使用する](https://learn.microsoft.com/ja-jp/azure/ai-services/openai/how-to/use-your-data-securely)
+
+    Microsoft Entra ID のロールベースのアクセス制御、仮想ネットワーク、プライベート エンドポイントを使用してデータとリソースを保護することで Azure OpenAI On Your Data を安全に使用する方法について説明しています。
+
+
+* [Security Best Practices for GenAI Applications (OpenAI) in Azure](https://techcommunity.microsoft.com/t5/azure-architecture-blog/security-best-practices-for-genai-applications-openai-in-azure/ba-p/4027885)
+
+    Azure OpenAI に焦点を当てつつ、Azure 内で使用できる他の LLM に関連するセキュリティについても説明しながら、Azure の GenAI アプリケーションのセキュリティのベスト プラクティスの概要について解説する記事です。
+
 <br>
 
 <hr>
