@@ -50,11 +50,9 @@
 
     * [Azure AI Language を使用してデータをエンリッチする](https://learn.microsoft.com/ja-jp/training/modules/enrich-search-index-using-language-studio/)
 
-
     * [Azure AI 検索で高度な検索機能を実装する](https://learn.microsoft.com/ja-jp/training/modules/implement-advanced-search-features-azure-cognitive-search/)
 
     * [Azure AI 検索ソリューションを維持する](https://learn.microsoft.com/ja-jp/training/modules/maintain-azure-cognitive-search-solution/)
-
 
     * [Azure AI 検索でベクトル検索と取得を実行する](https://learn.microsoft.com/ja-jp/training/modules/improve-search-results-vector-search/)
 
