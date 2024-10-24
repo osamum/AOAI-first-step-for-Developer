@@ -8,6 +8,13 @@ Azure OpenAI サービスが提供する [GPT-4o、GPT-4o mini、GPT-4 Turbo](ht
 
 この演習の内容は、ここまでの演習で準備したリソースを実施可能ですのでとくに追加の準備は必要ありません。
 
+この演習で行う作業は以下の通りです。
+
+* [タスク 1 : HTTP Client ツールによる呼び出しの確認(画像認識)](#%E3%82%BF%E3%82%B9%E3%82%AF-1---http-client-%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8D%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98)
+* [タスク 2 : チャットボット アプリへの画像認識機能の統合](#%E3%82%BF%E3%82%B9%E3%82%AF-2---%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88-%E3%82%A2%E3%83%97%E3%83%AA%E3%81%B8%E3%81%AE%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E6%A9%9F%E8%83%BD%E3%81%AE%E7%B5%B1%E5%90%88)
+    * [2-1 : AOAI/lm.js の sendMessage 関数の変更](Ex03-op-1.md#%E3%82%BF%E3%82%B9%E3%82%AF-2-1--aoailmjs-%E3%81%AE-sendmessage-%E9%96%A2%E6%95%B0%E3%81%AE%E5%A4%89%E6%9B%B4)
+    * [2-2 : consoleBot.js の変更](#%E3%82%BF%E3%82%B9%E3%82%AF-2-2--consolebotjs-%E3%81%AE%E5%A4%89%E6%9B%B4)
+
 <br>
 
 ## タスク 1 :  HTTP Client ツールによる呼び出しの確認(画像認識)
@@ -277,11 +284,12 @@ Visual Studio Code に **Code Runner** 拡張をインストールします。
     ボットに対し、以下のメッセージを送信します。
 
     ```plaintext
-    次のふたつの画像に書かれている数字の合計は?: https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n01.jpg , https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n02.jpg
+    次のふたつの画像に書かれている数字の合計は?: https://osamum.github.io/publish/assets/n01.jpg, https://osamum.github.io/publish/assets/n02.jpg
     ```
     認識させる画像は以下の 2 つです。
 
-    <img src="https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n01.jpg" width="300px"> <img src="https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n02.jpg" width="300px">
+    <img src="https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n01.jpg" width="300px"> 
+    <img src="https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n02.jpg" width="300px">
 
     送信したメッセージの内容が正しく処理されていることを確認します。
 
@@ -311,7 +319,7 @@ GTP-4 の画像認識機能は、画像の内容を説明するだけでなく O
 getBase64LocalImage という名前で、引数 path に与えられたパスにある画像ファイルの Base64 エンコードデータを返す Node.js の関数を生成してください 
 ```
 
-ので、あとは Base64 データの前に文字列 'data:image/jpeg;base64,' を追加して画像の URL を扱う配列にセットすれば、ローカルファイルの画像も認識させることができます。
+あとは Base64 データの前に文字列 'data:image/jpeg;base64,' を追加して画像の URL を扱う配列にセットすれば、ローカルファイルの画像も認識させることができます。
 
 ただし、繰り返しになりますが、生成されたコードをそのまま使用することはせず、必ず生成されたコードをベースに適切なエラーハンドリングやセキュリティの対策に問題がないか確認のうえ、ご自身の責任のもとで使用してください。
 
