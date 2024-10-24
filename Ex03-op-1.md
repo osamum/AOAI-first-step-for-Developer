@@ -288,12 +288,19 @@ Visual Studio Code に **Code Runner** 拡張をインストールします。
     ```
     認識させる画像は以下の 2 つです。
 
-    <img src="https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n01.jpg" width="300px"> 
-    <img src="https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n02.jpg" width="300px">
+    <img src="https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n01.jpg" width="200px"> 
+    <img src="https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n02.jpg" width="200px">
 
     送信したメッセージの内容が正しく処理されていることを確認します。
 
+    ![ボットアプリケーションの画像認識の結果](images/consoleBot_imgRecog_result02.png)
+
 ここまでの手順でチャットボット アプリケーションが画像を認識できるようになりました。
+
+うまく動作しない場合は以下のサンプルのコードを使用してみてください。
+
+* [画像認識のためのリクエストを生成する lm.js](samples/lm_4.js)
+* [ユーザーのメッセージからファイルの URL のリストを取得する](samples/consoleBot_2.js)
 
 なお、GTP-4 モデルの画像認識機能についてのより詳しい内容については以下のドキュメントをご参照ください。
 
