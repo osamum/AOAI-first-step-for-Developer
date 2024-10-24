@@ -106,7 +106,7 @@ GPT-4 モデルの画像認識機能は、複数枚数の画像の指定や以�
 
 ### タスク 2-1 : AOAI/lm.js の sendMessage 関数の変更
 
-作業効率化の都合上、AOAI/lm.js 側の作業から行います。
+作業効率化の都合上、**AOAI/lm.js** 側の作業から行います。
 
 具体的な手順は以下の通りです。
 
@@ -141,7 +141,6 @@ GPT-4 モデルの画像認識機能は、複数枚数の画像の指定や以�
             _content.push({ type: 'image_url', image_url: { url: imageUrl } });
         }
         message = { role: 'user', content: _content };
-
         body = { messages: [message], max_tokens: 100, stream: false };
     } else {
         if (message) addMessage({ role: 'user', content: message });
@@ -154,7 +153,7 @@ GPT-4 モデルの画像認識機能は、複数枚数の画像の指定や以�
     const result = await client.chat.completions.create(body);
     ```
   
-    この作業作業で変更された **sendMessage** 関数内のコードは以下の赤枠の部分です。
+    この作業で変更された **sendMessage** 関数内のコードは以下の赤枠の部分です。
 
     ![sendMessage 関数の変更箇所](images/sendMessageFunc_change.png)
 
@@ -168,4 +167,163 @@ GPT-4 モデルの画像認識機能は、複数枚数の画像の指定や以�
 <br>
 
 ### タスク 2-2 : consoleBot.js の変更
+
+**consoleBot.js** 側の作業では、ユーザーのメッセージに含まれる画像ファイルへの URL を配列として取り出し、それを AOAI/lm.js の **sendMessage** 関数に渡すようにコードを変更します。
+
+\[**準備**\]
+
+この作業では、ユーザーのメッセージに含まれる画像ファイルへの URL を配列として取り出す関数を言語モデルに生成させますが、生成されたコードの検証を簡単にするために
+Visual Studio Code に **Code Runner** 拡張をインストールします。
+
+以下のリンク先の \[**Install**\] ボタンをクリックして、Visual Studio Code に **Code Runner** 拡張をインストールしてください。
+
+* [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
+
+\[**手順**\]
+
+**consoleBot.js** での作業は以下の通りです。
+
+1. 言語モデルにユーザーのメッセージに含まれる画像ファイルへの URL を配列として取り出す関数を生成させます
+
+    Visual Studio Code のターミナル画面で以下のコマンドを実行します
+
+    ```bash
+    node consoleBot.js
+    ```
+
+    チャットボット アプリケーションが起動したら、以下のメッセージを送信して **getImageUrls** 関数を生成します
+
+    ```plaintext
+    getImageUrls という名前で、引数 content に与えられた文字列に含まれる画像ファイルの URL を配列を返す JavaScript の関数を生成してください 
+    ```
+
+    **getImageUrls** 関数と、`使用例` としてテスト用のコードが生成されるので、それらのコードをコピーして **consoleBot.js** に貼り付けます。
+
+    なお、コードの生成が完了したら、ターミナル画面で \[**ctrl**\] + \[**C**\] キーを押下してチャットボット アプリケーションを終了してください。
+
+2. **consoleBot.js** に貼り付けた **getImageUrls** 関数とテスト用コードをマウスでドラッグして右クリックし、表示されたコンテキスト メニューから \[**Run Code**\] をクリックします
+
+    ![Code Runner でのコードの実行](images/VSCode_RunCode_Run.png)
+
+    実行結果が以下のように表示されるので、関数に与えた文字列に含まれる画像ファイルの URL が配列として取り出されることを確認します。
+
+    ![Code Runner でのコードの実行結果](images/VSCode_RunCode_Result.png)
+
+    なお、特定のパターンでしか正しく動作しない関数コードが生成されることがあるので、引数として与える文字列を変えて何度かテストしてみてください。
+
+    もし、うまくいかない場合は以下のコードを使用してみてくたさい。
+
+    ```javascript
+   //文字列中の画像の URL を配列として取得する関数
+    function getImageUrls(content) {
+        const regex = /(https?:\/\/[^\s]+?\.(?:jpg|jpeg|png|gif))/g;
+        return content.match(regex) || [];
+    }
+
+    // 使用例
+    const exampleContent = "画像リンク: https://example.com/photo1.jpg そしてこちら: https://example.com/photo2.png";
+    console.log(getImageUrls(exampleContent));
+    ```
+    
+    **getImageUrls** 関数が正常に動作することを確認したらテスト用のコードを削除するかコメントアウトしてください。
+
+3. 同 **consoleBot.js** の、ユーザーからの入力を処理する **process.stdin.on** ハンドラーの中身を以下のコードに置き換えます。
+
+    ```javascript
+    const inputString = data.trim();
+    console.log(`\nAI : ${await lm.sendMessage(await rag.findIndex(inputString),getImageUrls(inputString))}`);
+    showPrompt();
+    ```
+
+    変更点としては、ユーザーからの入力を取得する `data.trim()` 関数の結果を変数 `inputString` に格納するようにしたのと、`lm.sendMessage` 関数に新たに追加した、ファイルの URL の配列を指定する 第 2 引数に `getImageUrls(inputString)` を指定している部分のみです。
+
+    変更後の **process.stdin.on** ハンドラー全体のコードは以下のようになります。
+
+    ```javascript
+    // 標準入力を受け取る
+    process.stdin.on('data', async function (data) {
+        const inputString = data.trim();
+        console.log(`\nAI : ${await lm.sendMessage(await rag.findIndex(inputString),getImageUrls(inputString))}`);
+        showPrompt();
+    });
+    ```
+    コードの変更が完了したら、キーボードの \[**ctrl**\] + \[**S**\] キーを押下して保存します。
+
+4. コンソール ボットを起動して画像認識の機能を確認します
+
+    Visual Studio Code のターミナル画面で以下のコマンドを実行します
+
+    ```bash
+    node consoleBot.js
+    ```
+
+    プロンプトが表示されたら、以下のメッセージを入力して画像認識の機能を確認します
+
+    ```plaintext
+    この画像を説明してください: https://osamum.github.io/publish/assets/steak.jpg
+    ```
+
+    認識させる画像は以下です。
+
+    <img src="https://osamum.github.io/publish/assets/steak.jpg" width="300px">
+
+    画像の内容を説明するメッセージが応答されることを確認します。
+
+    ![ボットアプリケーションの画像認識の結果](images/consoleBot_imgRecog_result01.png)
+
+
+5. 複数のファイルの URL を含むメッセージを処理できることを確認します
+
+    ボットに対し、以下のメッセージを送信します。
+
+    ```plaintext
+    次のふたつの画像に書かれている数字の合計は?: https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n01.jpg , https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n02.jpg
+    ```
+    認識させる画像は以下の 2 つです。
+
+    <img src="https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n01.jpg" width="300px"> <img src="https://raw.githubusercontent.com/osamum/publish/refs/heads/main/assets/n02.jpg" width="300px">
+
+    送信したメッセージの内容が正しく処理されていることを確認します。
+
+ここまでの手順でチャットボット アプリケーションが画像を認識できるようになりました。
+
+なお、GTP-4 モデルの画像認識機能についてのより詳しい内容については以下のドキュメントをご参照ください。
+
+- [Vision - OpenAPI](https://platform.openai.com/docs/guides/vision)
+- [GPT-4 Vision API | OpenAI Help Center](https://help.openai.com/en/articles/8555496-gpt-4-vision-api)
+
+>[!CAUTION]
+>この演習では言語モデルに関数を生成させて使用しましたが、実際の開発作業においては、生成されたコードをそのまま使用することはせず、必ず生成されたコードをベースに適切なエラーハンドリングやセキュリティの対策に問題がないか確認のうえ、ご自身の責任のもとで使用してください。
+
+<br>
+
+## まとめ
+
+この演習では、Azure OpenAI サービスの言語モデルで画像認識を行う際のデータ構造を確認し、チャットボット アプリケーションに画像認識機能を統合しました。
+
+GTP-4 の画像認識機能は、画像の内容を説明するだけでなく OCR によるテキストの抽出も可能であることも確認できたかと思います。
+
+今回の画像認識では画像の URL を扱いましたが、前述したとおり Base 64 エンコードされた画像データをリクエストに含めることもできるので、ローカルファイルの画像も GTP-4 モデルに認識させることが可能です。
+
+たとえばこの演習で作成したコンソールボットに以下のメッセージを送信すれば、指定したローカルの画像ファイルの Base64 エンコードされたデータを返す関数を生成してくれます。
+
+```plaintext
+getBase64LocalImage という名前で、引数 path に与えられたパスにある画像ファイルの Base64 エンコードデータを返す Node.js の関数を生成してください 
+```
+
+ので、あとは Base64 データの前に文字列 'data:image/jpeg;base64,' を追加して画像の URL を扱う配列にセットすれば、ローカルファイルの画像も認識させることができます。
+
+ただし、繰り返しになりますが、生成されたコードをそのまま使用することはせず、必ず生成されたコードをベースに適切なエラーハンドリングやセキュリティの対策に問題がないか確認のうえ、ご自身の責任のもとで使用してください。
+
+## 次へ
+
+👉 [**演習 4 : 演習用ボット アプリケーションのフレームワークへの移植**](Ex04-0.md)
+
+<br>
+
+<hr>
+
+👈 [**演習 3. 6 : 演習用ボットをコンソール アシスタントとして利用する** ](Ex03-6.md)
+
+🏚️ [README に戻る](README.md)
 
