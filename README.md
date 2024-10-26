@@ -30,6 +30,7 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
 - Node.js 用 Azure OpenAI ライブラリを使用したボットアプリケーションの作成
 - Function Calling を使用したボットアプリケーションへの任意の関数の統合
 - RAG (Retrieval-Augmented Generation) の実装 
+- 画像認識機能の実装
 - Structured Outputs を使用した構造化データの生成
 - 演習で開発した機能のアプリケーション フレームワークへの移植
 - Azure Bot によるサービスの公開
@@ -118,7 +119,7 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
         - [タスク 1 : HTTP Client ツールによる呼び出しの確認(画像認識)](Ex03-5.md#%E3%82%BF%E3%82%B9%E3%82%AF-1---http-client-%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8D%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98)
         - [タスク 2 : チャットボット アプリへの画像認識機能の統合](Ex03-5.md#%E3%82%BF%E3%82%B9%E3%82%AF-2---%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88-%E3%82%A2%E3%83%97%E3%83%AA%E3%81%B8%E3%81%AE%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98%E6%A9%9F%E8%83%BD%E3%81%AE%E7%B5%B1%E5%90%88)
 
-    - [3. 6 : 言語モデルの応答に JSON を指定する](Ex03-5.md)
+    - [3. 6 : 言語モデルの応答に JSON を指定する](Ex03-6.md)
         - [タスク 1 : HTTP Client ツールによる呼び出しの確認(Structured Outputs)](Ex03-6.md#%E3%82%BF%E3%82%B9%E3%82%AF-1--http-client-%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8Dstructured-outputs)
         - [タスク 2 : JavaScript コードからの呼び出しの確認](Ex03-6.md#%E3%82%BF%E3%82%B9%E3%82%AF-2--javascript-%E3%82%B3%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E3%81%AE%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8D)
     - [3. 7 : 演習用ボットをコンソール アシスタントとして利用する](Ex03-7.md)
