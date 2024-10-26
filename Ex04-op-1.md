@@ -1,4 +1,4 @@
-# 演習 4.オプション : Microsoft Teams へのインストール
+# 演習 4.オプション 1 : Microsoft Teams へのインストール
 
 演習 4 で Azure Bot Service に登録したボットを Microsoft Teams にインストールします。
 
@@ -78,7 +78,7 @@ Teams アプリケーションの開発については、以下のドキュメ�
 
 ## 次へ
 
-👉 [**ハンズオン終了後の目的別学習コンテンツ紹介**](NextLearn.md)
+👉 [**演習 4.オプション 2 : Teams ボットへの画像認識機能の追加**](Ex04-op-2.md)
 
 <br>
 
