@@ -13,35 +13,30 @@
 
 ### メッセージに添付された画像の URL の取得
 
-ユーザーが Teams への投稿に添付したファイルの情報は、Bot Framework アプリケーション内では `context.activity.attachments` に配列として格納されます。この配列には添付ファイルのほかに、ユーザーが投稿した書式付きメッセージも含まれるため lenght が 0 になることはありません。そのため、添付ファイルがあるかどうかは `context.activity.attachments.length` が 1 より大きいかどうかで判定します。
+ユーザーが Teams への投稿に添付したファイルの情報は、Bot Framework アプリケーション内では `context.activity.attachments` に配列として格納されます。この配列には添付ファイルのほかに、ユーザーが投稿した書式付きメッセージも含まれるため配列の各要素の `content.fileType` プロパティを使用してファイルの種類が画像であるかどうかを判別する必要があります。
 
 ```javascript
-if (context.activity.attachments.length > 1) {
-    // 添付ファイルがある場合の処理
-}
-```
-
-また、書式付きメッセージは配列の最後に格納されるため、ループ処理でファイルの情報のみを取得する際には配列の最後の要素はスキップします。
-
-```javascript
-if (context.activity.attachments.length > 1) {
-    // 添付ファイルがある場合の処理
-    for(let cnt=0; cnt<attachments.length -1 ; cnt++) {
-    // 添付ファイルの処理
-    }
+//attachments を列挙
+for (const attach of context.activity.attachments;) {
+    //添付されたファイルが画像の場合は files 配列に追加
+    let fileType = attach.content.fileType;
+    if (/^(jpg|jpeg|png|gif)$/i.test(fileType)) {
+        //画像ファイルの場合の処理
+    }    
 }
 ```
 
 添付されているファイルへの URL は配列 `attachments` の各要素の `contentUrl` プロパティに格納されていますが、ファイルの実体はユーザーの OneDrive か SharePoint 上に存在していてアクセス権が必要であるため、この URL をそのまま GTP モデルに渡しても GTP モデルからアクセスすることができません。本来であればボット アプリケーション内でアクセストークンを取得し、そのアクセストークンを使って画像のデータを取得し Baes64 エンコードして言語モデルに渡す必要がありますが、この演習ではその処理を省略するため非永続で認証が不要な `content.downloadUrl` プロパティを使用します。
 
 ```javascript
-if (context.activity.attachments.length > 1) {
-    // 添付ファイルがある場合の処理
-    let files = []; 
-    for(let cnt=0; cnt<attachments.length -1 ; cnt++) {
-    // 添付ファイルの処理
-        files.push(attachments[cnt].content.downloadUrl);
-    }
+//attachments を列挙
+for (const attach of context.activity.attachments;) {
+    //添付されたファイルが画像の場合は files 配列に追加
+    let fileType = attach.content.fileType;
+    if (/^(jpg|jpeg|png|gif)$/i.test(fileType)) {
+        //画像ファイルの場合の処理
+        files.push(attach.content.downloadUrl);
+    }    
 }
 ```
 
@@ -58,24 +53,19 @@ if (context.activity.attachments.length > 1) {
 2. ファイル **bot.js** の **onMessage** ハンドラーの内容を以下のコードに置き換えます。
 
     ```javascript
+    let files = [];
+    const inputText = context.activity.text;
     //ユーザーから送信されたメッセージの attachments を取得
     const attachments = context.activity.attachments;
-    //Teams ボットは attachments に書式付きの投稿メッセージが含まれるため
-    //ファイルが添付されている場合 length は 1 より大きくなる
-    if (attachments && attachments.length > 1) {              
-        let files = [];  
-        //Teams ボットは attachments の最後に書式付きの投稿メッセージが含まれるため、最後の要素は無視
-        for(let cnt=0; cnt<attachments.length -1 ; cnt++) {
-        /*
-        一次的にファイルにアクセス出来れば良いので非永続で認証が不要な downloadUrl プロパティを使用
-        そのため、投稿時に貼り付けた画像には対応しない
-        */
-            files.push(attachments[cnt].content.downloadUrl);
-        }
-        //ファイルだけ送信されてきた場合には無視
-        if(inputText) await context.sendActivity(MessageFactory.text(await lm.sendMessage(await rag.findIndex(inputText),files)));
-    } else {
-        await context.sendActivity(MessageFactory.text(await lm.sendMessage(await rag.findIndex(inputText))));
+    //attachments を列挙
+    for (const attach of attachments) {
+        //添付されたファイルが画像の場合は files 配列に追加
+        let fileType = attach.content.fileType;
+        if (/^(jpg|jpeg|png|gif)$/i.test(fileType)) files.push(attach.content.downloadUrl);
+    }
+    //ファイルだけ送信されてきた場合には無視
+    if (inputText) {
+        await context.sendActivity(MessageFactory.text(await lm.sendMessage(await rag.findIndex(inputText), files)));
     }
     await next();
     ```
@@ -103,9 +93,6 @@ if (context.activity.attachments.length > 1) {
 
 この演習では、[演習 3.オプション : GTP モデルを使用した画像認識](Ex03-op-1.md#%E6%BC%94%E7%BF%92-3%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3--gtp-%E3%83%A2%E3%83%87%E3%83%AB%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%9F%E7%94%BB%E5%83%8F%E8%AA%8D%E8%AD%98) で追加した画像認識機能を Teams ボットから利用できるようにしました。
 
-Bot Framework アプリケーションにおいて、ユーザーがメッセージに添付したファイルの情報が `context.activity.attachments` に配列として格納されるのは Teams に限らず [ボット チャネル](https://learn.microsoft.com/ja-jp/azure/bot-service/bot-service-channels-reference?view=azure-bot-service-4.0#activity-support-by-channel)がサポートするメッセージ プラットフォームで共通の動作ですが、Teams がその配列の中にファイルではなく書式付きの投稿メッセージも含めるといったように、メッセージプラットフォームによってはその動作が異なる場合があるので注意が必要です。
-
-また、`context.activity.attachments` に配列に含まれるファイルの情報は画像ファイルに限らず添付された全てのファイルが含まれるので、ファイルの種類に応じて最適な処理を行うようにコードを記述することが重要です。
 
 <br>
 
