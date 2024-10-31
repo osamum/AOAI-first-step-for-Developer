@@ -17,7 +17,7 @@
 
 ```javascript
 //attachments を列挙
-for (const attach of context.activity.attachments;) {
+for (const attach of context.activity.attachments) {
     //添付されたファイルが画像の場合は files 配列に追加
     let fileType = attach.content.fileType;
     if (/^(jpg|jpeg|png|gif)$/i.test(fileType)) {
