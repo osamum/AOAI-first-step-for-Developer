@@ -85,7 +85,7 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
 
 - [**Node.js**](https://nodejs.org/ja/)
 
-    - V22.11.0(LTS)バージョン (2024 年 10 月現在の最新の LTS) 
+    - V22.11.0(LTS)バージョン (2024 年 11 月現在の最新の LTS) 
 
 
     > もし、V22.11.0 で動作しない場合は、v20.17.0 もしくは v20.18.0 の LTS バージョンでお試しください。なお、ローカル環境で Node.js のバージョンを切り替える必要がある場合には Windows では [**nvm-windows**](https://github.com/coreybutler/nvm-windows) 、Mac では [nvm](https://github.com/nvm-sh/nvm) を使用すると便利です。
