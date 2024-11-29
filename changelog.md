@@ -1,5 +1,16 @@
 # Change log
 
+## November 29, 2024
+
+[ハンズオン終了後の目的別学習コンテンツ紹介](NextLearn.md) に **サービスの運用環境の構築について** の項目を作成し、以下のドキュメントへのリンクを追加しました。
+
+* [基本 OpenAI エンドツーエンド チャット リファレンス アーキテクチャ](https://learn.microsoft.com/ja-jp/azure/architecture/ai-ml/architecture/basic-openai-e2e-chat)
+
+* [ベースライン OpenAI エンドツーエンド チャット リファレンス アーキテクチャ](https://learn.microsoft.com/ja-jp/azure/architecture/ai-ml/architecture/baseline-openai-e2e-chat)
+
+* [Azure OpenAI end-to-end baseline reference implementation](https://github.com/Azure-Samples/openai-end-to-end-baseline)
+
+
 ## November 06, 2024
 
 演習で使用する Node.js のバージョンを v22.11.0 に変更しました。

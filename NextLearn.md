@@ -95,9 +95,7 @@
 
 * [基本 OpenAI エンドツーエンド チャット リファレンス アーキテクチャ](https://learn.microsoft.com/ja-jp/azure/architecture/ai-ml/architecture/basic-openai-e2e-chat)
 
-    このアーキテクチャは、運用アプリケーションで使用するためのものではありませんが、学習や概念実証 (POC) の目的で使用できる入門アーキテクチャとなること目的したものです。
-
-    AI チャット ボットサービスの評価や概念実証の環境を作成する際にご活用ください。
+    このアーキテクチャは、運用アプリケーションで使用するためのものではありませんが、学習や概念実証 (POC) の目的で使用できる入門アーキテクチャについて説明しています。チャット ボットサービスの評価や概念実証の環境を作成する際にご活用ください。
 
  * [ベースライン OpenAI エンドツーエンド チャット リファレンス アーキテクチャ](https://learn.microsoft.com/ja-jp/azure/architecture/ai-ml/architecture/baseline-openai-e2e-chat)
 
@@ -105,8 +103,7 @@
 
     また以下の GitHub リポジトリには、このアーキテクチャに基づいたデプロイガイドが提供されており、実際に環境を構築する際に参考になります。
 
-    * [Azure OpenAI end-to-end baseline reference implementation](
-https://github.com/Azure-Samples/openai-end-to-end-baseline)  
+    * [Azure OpenAI end-to-end baseline reference implementation](https://github.com/Azure-Samples/openai-end-to-end-baseline)
 
     この実装は、実稼働に向けた最初のステップとして、カスタム ソリューション開発の基盤として使用できます。
 <br>
