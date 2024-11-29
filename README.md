@@ -51,6 +51,7 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
 * [Azure OpenAI end-to-end baseline reference implementation](https://github.com/Azure-Samples/openai-end-to-end-baseline)
 
 
+
 ### 2024 年 11 月 06 日
 
 演習で使用する Node.js のバージョンを v22.11.0 に変更しました。
