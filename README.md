@@ -30,7 +30,7 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
 - Node.js 用 Azure OpenAI ライブラリを使用したボットアプリケーションの作成
 - Function Calling を使用したボットアプリケーションへの任意の関数の統合
 - RAG (Retrieval-Augmented Generation) の実装 
-- 画像認識機能の実装
+- 画像生成/認識機能の実装
 - Structured Outputs を使用した構造化データの生成
 - 演習で開発した機能のアプリケーション フレームワークへの移植
 - Azure Bot によるサービスの公開
