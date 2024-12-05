@@ -106,6 +106,24 @@
     * [Azure OpenAI end-to-end baseline reference implementation](https://github.com/Azure-Samples/openai-end-to-end-baseline)
 
     この実装は、実稼働に向けた最初のステップとして、カスタム ソリューション開発の基盤として使用できます。
+
+* 参考となるセッションビデオ
+
+    2024 年 11 月 27-28 日に開催 : 「 AI-Ready Infra. Boot Camp ～ 拡張性のある AI 利用に向けた IT 基盤とは？ ～」
+
+    | 動画URL | タイトル | 備考 |
+    |---------|----------|------|
+    | [airdybc2024-01](https://www.youtube.com/watch?v=Igw8L77dmC0) | 拡張性のある AI 利用に向けた 3 つのステップ - AI-Ready なクラウド基盤へのプロセス | 本イベント全体の紹介を含み、ランディング ゾーンとコロケーションについて説明 |
+    | [airdybc2024-02](https://www.youtube.com/watch?v=nC8zu550JK8) | プラットフォーム ランディング ゾーンの基礎 | プラットフォーム ランディング ゾーンについて説明。音声合成によるプレゼン |
+    | [airdybc2024-03](https://www.youtube.com/watch?v=k60cHTwpTY0) | Cloud Adoption Framework AI シナリオ – AI ハブ ゲートウェイ ランディング ゾーンを例に | Ignite 2024 で発表された、CAF – AI シナリオの説明と、AI アプリにおける APIM を説明 |
+    | [airdybc2024-04](https://www.youtube.com/watch?v=DiJgg2PgvZE) | [ショート セッション] 実事例をベースにした、エンタープライズ規模の AI Factory の実装 | CSU CSA による Enterprise Scale AI Factory の GitHub リポジトリの内容を紹介 |
+    | [airdybc2024-05](https://www.youtube.com/watch?v=Cqn7KaFPE0M) | ランディング ゾーンとプラットフォーム エンジニアリング ～ 開発から本番への環境の展開 | Azure Sandbox と、プラットフォーム エンジニアリングを紹介 |
+    | [airdybc2024-06](https://www.youtube.com/watch?v=BKw3ky6sDOA) | Microsoft Unified を活用したAI Ready Infrastructure の構築と継続的な改善 | CSU Infra CSA より提供可能なサービスの紹介 |
+    | [airdybc2024-08](https://www.youtube.com/watch?v=pWRxb7gVlqc) | AI-Ready Infrastructure のためのセキュリティ | LZ/W-AF からセキュリティ対策を説明 |
+    | [airdybc2024-09](https://www.youtube.com/watch?v=ngccQjAH25g) | AI への脅威に対する保護を実現する Microsoft Defender for Cloud | AI Content Safety と Defender for Cloud の連携を紹介 |
+    | [airdybc2024-10](https://www.youtube.com/watch?v=RXptjPi5zcs) | 機密 AI のユースケースと、Azure 機密コンピューティング最新情報 | Ignite 2024 で発表された、Confidential Clean Rooms や 9月に GA した Confidential GPU の内容を含む |
+    | [airdybc2024-11](https://www.youtube.com/watch?v=Qu94NP8wx5M) | AI 時代の SAP 活用法 | SAP Joule と Copilot の連携を紹介 |
+
 <br>
 
 <hr>
