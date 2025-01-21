@@ -139,6 +139,7 @@ Bing Web Search API を使用して Web 検索を行い、その結果から言�
 
 1. Web ページのコンテンツを取得する機能
 2. Web ページのコンテンツから不要な HTML タグやスクリプト、スタイルシートを除去する機能
+3. Web を検索する機能
 
 このタスクではこれらの機能を実装します。
 
@@ -418,3 +419,174 @@ function rmTagAttributes(content) {
     return content.replace(/<(\w+)([^>]*)>/g, '<$1>');
 }
 ```
+
+ここまでで Web ページのコンテンツから不要な HTML タグだ囲まれた範囲や、属性を除去する機能の実装が完了しました。
+
+なお、ここまで関数の動作を確認するために使用したテストコードは、残っていると以降の手順に影響を与えるため必ず削除するかコメントアウトしてください。
+
+<br>
+
+## タスク 2-3 : Web 検索機能の実装と言語モデルへのメッセージの生成
+
+[準備](#%E6%BA%96%E5%82%99---bing-web-search-%E3%81%AE%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4) でデプロイした Bing Web Search API を使用して Web 検索を行う機能を実装し、検索結果から言語モデルが回答を生成するのに必要な情報を提供する機能を実装します。
+
+具体的な手順は以下のとおりです。
+
+\[**手順**\]
+
+1. 演習用ボット アプリケーションの **.env** ファイルを開き、以下の 2 つの設定を追加します
+
+    変数それぞれに[準備](#%E6%BA%96%E5%82%99---bing-web-search-%E3%81%AE%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4)でメモしておいた Bing Web Search のエンドポイントとサブスクリプションキーを設定します。
+
+    ```text
+    BING_SEARCH_ENDPOINT=Bing Web Search のエンドポイントを記述
+    BING_SEARCH_KEY=Bing Web Search のサブスクリプションキーを記述
+    ```
+    キーボードの \[**Ctrl**\] + \[**S**\] キーを押下して変更を保存します
+
+2. ファイル **webSearch.js** を開き、ファイルの先頭に以下のコードを追加します
+
+    ```javascript
+    const dotenv = require("dotenv");
+    dotenv.config();
+
+    const bing_search_endpoint = process.env['BING_SEARCH_ENDPOINT'];
+    const bing_search_key = process.env['BING_SEARCH_KEY'];
+    ```
+
+3. Bing Web Search API を使用して検索を行う関数を言語モデルを使用して生成します
+
+    
+    Visual Studio Code の上部のメニュー \[**View**] - [**Terminal**] をクリックし、画面下部にターミナル画面が表示されるので、以下のコマンドを実行してチャットボット アプリケーションを起動します。
+
+    ```bash
+    node consoleBot.js
+    ```
+
+    ターミナル画面に `Prompt:` が表示されたら、以下のメッセージを入力して[**Enter**\] キーを押下します
+
+    ```text
+    getBingSearchResultという名前で、引数queryで受け取った文字列をBing Web Search APIで検索し、検索結果の"webPages"の内容を返す関数をJavaScript で作成してください。\n・取得するWeb pageの件数は3件にしてください\n・HTTPのリクエストにはfetchを使用してください
+    ```
+
+    キーボードの \[**Ctrl**\] + \[**C**\] キーを押下してチャットボットアプリを終了します。
+    
+    言語モデルが生成した **getBingSearchResult** 関数のコードをコピーして、作成した **webSearch.js** ファイルに貼り付けます。
+    
+    生成されたコードの内でサブスクリプションキーを指定している部分を前の手順で定義した変数 **bing_search_key** に変更します。
+
+    エンドポイントはおそらく正しいものがあらかじめ設定されていると思いますが、メモしておいたものと異なる場合は適宜書き換えてください。
+    
+    キーボードの \[**Ctrl**\] + \[**S**\] キーを押下して保存します。
+
+4. 作成した関数が正しく動作するか確認します
+
+    以下のコードを **webSearch.js** ファイルに追加します
+
+    ```javascript
+    getBingSearchResult('Azure OpenAI サービスについて教えてください').then(result => {
+        console.log(result);
+    });
+    ```
+
+    Visual Studio Code のターミナル画面で以下のコマンドを実行して関数が正しく動作するか確認します
+
+    ```bash
+    node AOAI/webSearch.js
+    ```
+
+    コンソールに検索結果が表示されれば正しく動作しています。
+
+
+    ここまでの手順で文字列から指定した HTML タグの範囲を除去する機能の実装が完了しました。
+
+    もしうまく動作しない場合は、以下のコードをお試しください。
+
+    ```javascript
+    async function getWebSearchResult(query) {
+    const endpoint = `https://api.bing.microsoft.com/v7.0/search?q=${encodeURIComponent(query)}&count=3`;
+
+        const response = await fetch(endpoint, {
+            headers: {
+            'Ocp-Apim-Subscription-Key': bing_search_key,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        return data.webPages;
+    }
+    ```
+
+5. 検索結果から言語モデルが回答を生成するためのプロンプトを生成します
+
+    以下のコードを **webSearch.js** ファイルに追加します
+
+    ```javascript
+    //言語モデルが回答を生成するためのプロンプト
+    async function createRequestWithWebSearchResult(query){
+    const webSerchResult = JSON.stringify(await getWebSearchResult(query));
+    return `[question] の内容に対し[content]内のJSONの内容を使用して回答してください\n` + 
+        `・ 各要素の snippet、content の内容を付き合わせ、信頼性の高い情報を採用してください\n` +
+        `・ 各要素の url のドメイン名からも信頼性を判断してください\n` + 
+        `・ 各要素の content 内の HTML タグの構造も参考にしてください\n` +
+        `・ 自信の回答に不必要に重複する文章がないようにしてください\n` + 
+        `[question]\n${query}\n\n[content]\n${webSerchResult}`
+    }
+
+    //言語モデルが回答を生成するための情報を生成
+    async function getWebSearchResult(query) {
+        // Bing Search の検索結果を取得
+        const sitesList = (await getBingSearchResult(query)).value;
+        const resultList = [];
+        for (const site of sitesList) {
+            const result = {};
+            result.url = site.url;
+            result.snippet = site.snippet;
+            //Web ページの内容を取得
+            const bodyContent = await getBodyContent(site.url);
+            //不要なタグの削除
+            const removedStyle = rmTagRange(bodyContent, 'style');
+            const removedScript = rmTagRange(removedStyle, 'script');
+            const removedifarme = rmTagRange(removedStyle, 'iframe');
+            //属性の削除
+            result.content = rmTagAttributes(removedifarme);
+            resultList.push(result);
+        }
+        return resultList;
+    }
+    ```
+6. 作成した関数が正しく動作するか確認します
+
+    以下のコードを **webSearch.js** ファイルに追加します
+
+    ```javascript
+    createRequestWithWebSearchResult('Azure OpenAI サービスについて教えてください').then(request => {
+        console.log(request);
+    });
+    ```
+
+    Visual Studio Code のターミナル画面で以下のコマンドを実行して関数が正しく動作するか確認します
+
+    ```bash
+    node AOAI/webSearch.js
+    ```
+
+    コンソールにプロンプトが表示されれば正しく動作しています。
+
+    正常動作が確認できたら検証用のコードを削除するかコメントアウトします。
+
+7. 作成した **createRequestWithWebSearchResult** 関数を外部から利用できるようにエクスポートします
+
+    以下のコードを **webSearch.js** ファイルに追加します
+
+    ```javascript
+    module.exports = {
+        createRequestWithWebSearchResult
+    };
+    ```
+
+    キーボードの \[**Ctrl**\] + \[**S**\] キーを押下して保存します。
