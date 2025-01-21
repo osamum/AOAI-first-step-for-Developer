@@ -196,19 +196,18 @@ URL から Web ページのコンテンツを取得する機能を実装しま�
 
     コンソールに以下の内容が表示されれば正しく動作しています。
 
-    ```
+    ```html
     <style>
-        div{
+        .article{
             color:black;
         }
     </style>
     <h1>online assets</h1>
 
-    <div>
+    <div class="article">
         このページは <a href="https://aka.ms/firststep-aoai-appdev">Azure OpenAI アプリケーション開発ハンズオン</a> の検証用ページです。
-        </a> 
+        <span style="color: blue;">この文字列はタグ中の style 属性によって書式が設定されています。</span>
     </div>
-
     <img src="assets/steak.jpg">
     <img src="assets/n01.jpg">
     <img src="assets/n02.jpg">
@@ -234,14 +233,188 @@ async function getBodyContent(url) {
     return bodyMatch ? bodyMatch[1] : null;
 }
 ```
+
+なお、手順の 4 で追加したテストコードは、残っていると以降の手順に影響を与えるため必ず削除してください。
+
 <br>
 
 ### タスク 2-2 : Web ページのコンテンツから不要な HTML タグやスクリプト、スタイルシートを除去する機能の実装
 
+取得したコンテンツから HTML タグをすべて取り除くかどうかについては、取得するデータの精度と処理の複雑さ、利用料金などを考慮して決定する必要があります。
+
+HTML は本来ドキュメントの構造を定義するものであり、これを定義するマークアップを削除することは、コンテンツの意味を理解する上での重要な情報を失う可能性があります。
+
+たとえば、表を表す table タグやリストを表す ul や ol、dl タグを削除してしまうと、前後の文字列との関係が失われてしまうため言語モデルは Web コンテンツに書かれている本来の意味を理解できなくなってしまいます。 
+
+
+とくに[セマンティックな要素](https://en.wikipedia.org/wiki/Semantic_Web)で記述されたコンテンツはデータとして構造化されているため、マシンリーダブルであり、検索エンジンはもちろん言語モデルにとってもコンテンツの内容を理解するのに有用な情報です。
+
+ただし、ドキュメントの構造を表さない \<script\> や \<style\>、\<iframe\>、\<!--(コメント アウト) といったタグは、コンテンツの意味を理解する上では重要ではないので取り除いても良いでしょう。
+
+とはいえ、HTML タグを含むコンテンツは、文字列のみのコンテンツと比較してデータ量は大幅に増えるので Token の消費量(利用料)が増えることになります。また、ドキュメントの構造が必ずしも検索の条件に有用でない場合もあります。たとえば、装飾に重きをおき Web 標準を無視した構造の Web ページなどは、HTML タグを解析しても意味のある情報が得られないでしょう。ブラウザー上で動的に生成される仕組みのコンテンツも同様です。
+
+そのため、Web ページから HTML タグを除去した文字列データを使用してみて充分に必要な精度が得られていると判断できる場合には、HTML タグを除去した文字列を使用してコストを節約するのも良いかもしれません。
+
+上記の処理については、[Microsoft Copilot](https://copilot.microsoft.com/) や [OpenAI ChatGPT](https://chatgpt.com/)、[Google Gemini](https://gemini.google.com/app)、[X grok](https://x.com/i/grok) といった言語モデルを使用した各アシスタントサービスに以下の質問をしてみるのも良いかもしれません。(※ただし、その回答が本当かどうかを確認する手段はありませんが)
+
+```text
+あなたはユーザーの質問に対し、インターネットを参照して回答をすることができますが、その際、Web ページのドキュメント構造を分析していたりしますか?
+```
+
+<参考>
+* [HtmlRAG: HTML is Better Than Plain Text for Modeling Retrieved Knowledge in RAG Systems](https://arxiv.org/abs/2411.02959)
+
+* [HtmlRAG: HTML is Better Than Plain Text for Modeling Retrieval Results in RAG Systems](https://github.com/plageon/HtmlRAG)
+
+
+<br>
+
+#### コンテンツから不要な HTML タグを除去する処理の実装
+
 前述の **getBodyContent** 関数で取得した Web ページのコンテンツから不要な HTML タグやスクリプト、スタイルシートを除去する機能を実装します。
 
-この処理には \<script\>～</script\> や \<style\>～\</style\>** などのように HTML タグで囲まれた文字列とタグそのものを除去する処理と、\< と \> で囲まれた文字列を除去する 2 つの処理が必要です。
+この処理には \<script\>～</script\> や \<style\>～\</style\> などのように HTML タグで囲まれた文字列とタグそのものを除去する処理と、HTML タグのパターンである \< と \> で囲まれた文字列を除去する 2 つの処理が必要です。
 
 この手順ではこれらの処理を行う関数を実装します。
 
 具体的な手順は以下のとおりです。
+
+\[**手順**\]
+
+ 1. 記述する関数は言語モデルを使用して作成します
+
+    Visual Studio Code の上部のメニュー \[**View**] - [**Terminal**] をクリックし、画面下部にターミナル画面が表示されるので、以下のコマンドを実行してチャットボット アプリケーションを起動します。
+
+    ```bash
+    node consoleBot.js
+    ```
+
+    ターミナル画面に `Prompt:` が表示されたら、以下のメッセージを入力して[**Enter**\] キーを押下します
+
+    ```text
+    引数contentの文字列から引数htmlTagに指定されたHTMLタグで囲まれた文字列をタグを含め除去するrmTagRangeという名前の関数をJavaScriptで生成してください\n例)\ncontent=script,content=AAAAA<script>\n  alert('OK');\n</script>BBBB\n返り値: AAAAABBBB
+    ```
+
+    キーボードの \[**Ctrl**\] + \[**C**\] キーを押下してチャットボットアプリを終了します。
+    
+    言語モデルが生成した **rmTagRange** 関数のコードをコピーして、作成した **webSearch.js** ファイルに貼り付け、キーボードの \[**Ctrl**\] + \[**S**\] キーを押下して保存します。
+
+2. 貼り付けたコードが正しく動作するか確認します。
+
+    以下のコードを **webSearch.js** ファイルに追加します
+
+    ```javascript
+    getBodyContent('https://osamum.github.io/publish/').then(body => {
+        const removedStyle = rmTagRange(body, 'style');
+        const removedScript = rmTagRange(removedStyle, 'script');
+        console.log(removedScript);
+    });
+    ```
+3. Visual Studio Code のターミナル画面で以下のコマンドを実行して関数が正しく動作するか確認します
+
+    ```bash
+    node AOAI/webSearch.js
+    ```
+
+    コンソールに以下の内容が表示されれば正しく動作しています。
+
+    ```html
+    <h1>online assets</h1>
+
+    <div class="article">
+        このページは <a href="https://aka.ms/firststep-aoai-appdev">Azure OpenAI アプリケーション開発ハンズオン</a> の検証用ページです。
+        <span style="color: blue;">この文字列はタグ中の style 属性によって書式が設定されています。</span>
+    </div>
+    <img src="assets/steak.jpg">
+    <img src="assets/n01.jpg">
+    <img src="assets/n02.jpg">
+    ```
+
+    タスク 2-1 の実行結果と比較して、スタイルシートやスクリプトが除去されていることを確認してください。
+
+
+ここまでの手順で文字列から指定した HTML タグの範囲を除去する機能の実装が完了しました。
+もしうまく動作しない場合は、以下のコードをお試しください。
+
+```javascript
+function rmTagRange(content, htmlTag) {
+    const regex = new RegExp(`<${htmlTag}[^>]*>(.*?)<\/${htmlTag}>`, 'gs');
+    return content.replace(regex, '');
+}
+```
+
+<br>
+
+#### HTML タグから属性を削除する処理の実装
+
+HTML タグには style 属性や class 属性、id 属性などが含まれていることがありますが、これらはコンテンツの意味を理解する上で重要ではないことがほとんどです。
+
+しかしながら a タグの href 属性や img タグの src、alt 属性などはユーザーからの質問の回答に使用されることも考えられるため、これらの属性を削除するかどうかは慎重に検討する必要があります。
+
+しかしながら、これらを考慮した実装を行うには複雑な処理が必要となるため、ここでは手順を簡単にするために HTML タグから属性を全て削除する処理を実装します。
+
+具体的な手順は以下のとおりです。
+
+\[**手順**\]
+
+ 1. 記述する関数は言語モデルを使用して作成します        
+
+    Visual Studio Code の上部のメニュー \[**View**] - [**Terminal**] をクリックし、画面下部にターミナル画面が表示されるので、以下のコマンドを実行してチャットボット アプリケーションを起動します。
+
+    ```bash
+    node consoleBot.js
+    ```
+
+    ターミナル画面に `Prompt:` が表示されたら、以下のメッセージを入力して[**Enter**\] キーを押下します
+
+    ```text
+    引数contentの文字列に含まれるHTMLタグの属性を除去した文字列を返すrmTagAttributesという名前の関数をJavaScriptで生成してください。なお返り値の文字列で<や>が重複しないように注意してください\n例)\ncontent=AAA<div class="article">\n<span style="color:blue;">BBBBB</span>\n</div>CCCCC\n返り値: AAA<div><span>BBBBB</span></div>CCCCC
+    ```
+
+    キーボードの \[**Ctrl**\] + \[**C**\] キーを押下してチャットボットアプリを終了します。
+    
+    言語モデルが生成した **rmTagAttributes** 関数のコードをコピーして、作成した **webSearch.js** ファイルに貼り付け、キーボードの \[**Ctrl**\] + \[**S**\] キーを押下して保存します。
+
+2.  貼り付けたコードが正しく動作するか確認します。
+
+    **webSearch.js** にある、前の手順の検証用コードを以下のように書き換え、キーボードの \[**Ctrl**\] + \[**S**\] キーを押下して保存します。
+
+    ```javascript
+    getBodyContent('https://osamum.github.io/publish/').then(body => {
+        const removedStyle = rmTagRange(body, 'style');
+        const removedScript = rmTagRange(removedStyle, 'script');
+        const removedTagAttributes = rmTagAttributes(removedScript);
+        console.log(removedTagAttributes);
+    });
+    ```
+3. Visual Studio Code のターミナル画面で以下のコマンドを実行して関数が正しく動作するか確認します
+
+    ```bash
+    node AOAI/webSearch.js
+    ```
+
+    コンソールに以下の内容が表示されれば正しく動作しています。
+
+    ```html
+    <h1>online assets</h1>
+
+    <div>
+        このページは <a>Azure OpenAI アプリケーション開発ハンズオン</a> の検証用ページです。
+        <span>この文字列はタグ中の style 属性によって書式が設定されています。</span>
+    </div>
+    <img>
+    <img>
+    <img>
+    ```
+
+    前の手順の実行結果と比較して、HTML 内の属性が除去されていることを確認してください。
+
+
+ここまでの手順で文字列から指定した HTML タグの範囲を除去する機能の実装が完了しました。
+もしうまく動作しない場合は、以下のコードをお試しください。
+
+```javascript
+function rmTagAttributes(content) {
+    return content.replace(/<(\w+)([^>]*)>/g, '<$1>');
+}
+```
