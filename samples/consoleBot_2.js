@@ -1,4 +1,5 @@
-const rag = require('./AOAI/rag.js')
+const rag = require('./AOAI/rag.js');
+//[PLACEHOLDER:require webSearch.js]
 const lm = require('./AOAI/lm.js');
 
 // 標準入力を取得するための設定

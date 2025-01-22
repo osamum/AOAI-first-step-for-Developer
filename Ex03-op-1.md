@@ -590,3 +590,119 @@ function rmTagAttributes(content) {
     ```
 
     キーボードの \[**Ctrl**\] + \[**S**\] キーを押下して保存します。
+
+ここまでの手順で Web 検索機能を実装し、検索結果から言語モデルが回答を生成するのに必要な情報を提供する機能を実装しました。
+
+<br>
+
+## タスク 3: チャットボット アプリへの Web 検索機能の統合
+
+ここまでの作業で作成した Web 検索機能をチャットボット アプリに統合します。
+
+作業内容としては、まず最初に、問い合わせ内容の回答するデータが RAG のデータソースにも言語モデルの知識にもない場合に言語モデルが "■I_DONT_KNOW■" とだけ回答するようにシステムメッセージを変更します。
+
+つぎに言語モデルの回答が "■I_DONT_KNOW■" だった場合に Web 検索を行い、その結果を言語モデルに提供して回答を生成するようにします。
+
+具体的な手順は以下のとおりです。
+
+\[**手順**\]
+
+1. [演習 3.1-2](Ex03-1.md#%E3%82%BF%E3%82%B9%E3%82%AF-2-http-client-%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8D)  で作成したフォルダー **devPlayground** を Visual Studio Code で開きます
+
+2. **AOAI/lm.js** を開き、ファイルの上のほうに記述してある、以下のシステムメッセージを定義している部分を
+
+    ```javascript
+    //言語モデルとユーザーの会話を保持するための配列
+    var messages = [
+        { role: "system", content: "You are an useful assistant." },
+    ];
+    ```
+    以下のように変更します
+
+    ```javascript
+    //言語モデルとユーザーの会話を保持するための配列
+    var messages = [
+        { role: "system", content: "あなたは誠実なアシスタントです。分からないことには ■I_DONT_KNOW■ とだけ回答します"},
+    ];
+    ```
+    これで言語モデルは自身の知識にない情報に対して "■I_DONT_KNOW■" とだけ回答するようになります。
+
+    キーボードの \[**Ctrl**\] + \[**S**\] キーを押下して変更を保存します。
+
+3. Visual Studio Code の画面左のツリービューから **consoleBot.js** ファイルを開き、ファイル上部のコメント `//[PLACEHOLDER:require webSearch.js]` を以下のコードに置き換えます
+
+    ```javascript
+    const rag = require('./AOAI/webSearch.js')
+    ```
+
+4. 同 **consoleBot.js** ファイルに以下の関数を追加します
+
+    ```javascript
+    //言語モデルの回答が "■I_DONT_KNOW■" だった場合に Web 検索を行い、その結果を言語モデルに提供して回答を生成するためのメッセージを生成
+    async function if_Idontknow(queryString, assistantAnswer){
+        if(assistantAnswer == '■I_DONT_KNOW■'){
+            console.log('\nAI : インターネットを検索しています...');
+            const re_request = await webSearch.createRequestWithWebSearchResult(queryString);
+            return await lm.sendMessage(re_request);
+        }else{
+            return assistantAnswer;
+        }
+    }
+    ```
+
+5. 同 **consoleBot.js** ファイルの **process.stdin.on** ハンドラー内の以下のコードを
+
+    ```javascript
+    console.log(`\nAI : ${await lm.sendMessage(await rag.findIndex(inputString),getImageUrls(inputString))}`);
+    ```
+
+    以下のコードに置き換えます
+
+    ```javascript
+    // 入力された文字列を取得
+    const inputString = data.trim();
+    //RAG の結果
+    const ragResult = await rag.findIndex(inputString);
+    //言語モデルの結果
+    const lmResult = await lm.sendMessage(ragResult,getImageUrls(inputString));
+    //Web 検索の結果
+    const webSearchResult = await if_Idontknow(inputString,lmResult);
+    console.log(`\nAI : ${webSearchResult}`);
+    ```
+
+    短く記述したい場合は以下のようにも記述できます
+
+    ```javascript
+    console.log(`\nAI : ${await if_Idontknow(inputString,await lm.sendMessage(await rag.findIndex(inputString),getImageUrls(inputString)))}`);
+    ```
+
+    キーボードの \[**Ctrl**\] + \[**S**\] キーを押下して変更を保存します。
+
+    これでコードの準備は完了です。
+
+6. チャットボット アプリケーションを起動して、Web 検索の機能が正しく動作することを確認します
+
+    Visual Studio Code のターミナル画面で以下のコマンドを実行します
+
+    ```bash
+    node consoleBot.js
+    ```
+
+    チャットボット アプリケーションが起動したら、挨拶や `現在の時刻を教えてください` 等、従来の機能を以下のように質問を入力して RAG の機能が正しく動作することを確認します
+
+    ```text
+    クラウド業界の市場分析を行い、現在のマーケットシェア、最新トレンド、利用者のニーズ、市場で最も人気のあるサービスを特定してください  
+    ```
+    以下のような回答が返ってくれば正しく動作しています
+
+    ![Web 検索機能の結果](images/WebSearch_Response.png)
+
+     キーボードの \[**Ctrl**\] + \[**C**\] キーを押下してプログラムを終了します。
+    
+ここまでの手順で、Bing Web Search の機能を使用して Web の検索能力ををチャットボット アプリケーションに追加することができました。
+
+<br>
+
+## まとめ
+
+この演習では言語モデルの知識を拡張する手段として RAG の機能を追加する方法を学びました。
