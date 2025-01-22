@@ -274,7 +274,7 @@ HTML は本来ドキュメントの構造を定義するものであり、これ
 
 前述の **getBodyContent** 関数で取得した Web ページのコンテンツから不要な HTML タグやスクリプト、スタイルシートを除去する機能を実装します。
 
-この処理には \<script\>～</script\> や \<style\>～\</style\> などのように HTML タグで囲まれた文字列とタグそのものを除去する処理と、HTML タグのパターンである \< と \> で囲まれた文字列を除去する 2 つの処理が必要です。
+この処理には \<script\>～</script\> や \<style\>～\</style\> などのように HTML タグで囲まれた文字列とタグそのものを除去する処理と、\<!-- --\> で囲まれたコメント アウト部分の削除、HTML タグの内の不要な属性を除去する 3 つの処理が必要です。
 
 この手順ではこれらの処理を行う関数を実装します。
 
@@ -296,9 +296,25 @@ HTML は本来ドキュメントの構造を定義するものであり、これ
     引数contentの文字列から引数htmlTagに指定されたHTMLタグで囲まれた文字列をタグを含め除去するrmTagRangeという名前の関数をJavaScriptで生成してください\n例)\ncontent=script,content=AAAAA<script>\n  alert('OK');\n</script>BBBB\n返り値: AAAAABBBB
     ```
 
+     言語モデルが生成した **rmTagRange** 関数のコードをコピーして、作成した **webSearch.js** ファイルに貼り付けます
+
+     続けて、言語モデルに対し以下のメッセージを入力して[**Enter**\] キーを押下します。
+
+     ```text
+    引数 content に渡された文字列中の <!-- から --> までの文字列をすべて削除して返り値として返す rmComment という名前の関数をJavaScript で生成してください
+    ```
+
+    言語モデルが生成した **rmComment** 関数のコードをコピーして、作成した **webSearch.js** ファイルに貼り付けます
+
+    続けて、言語モデルに対し以下のメッセージを入力して[**Enter**\] キーを押下します。
+
+    ```text
+    引数 content に渡された文字列中のすべての HTML タグから以下の属性を削除して返り値として返す sharpenTags という名前の関数をJavaScript で生成してください:\nid, style, class, tabindex, width, height, target
+    ```
+
+    言語モデルが生成した **sharpenTags** 関数のコードをコピーして、作成した **webSearch.js** ファイルに貼り付け、キーボードの \[**Ctrl**\] + \[**S**\] キーを押下して保存します。
+
     キーボードの \[**Ctrl**\] + \[**C**\] キーを押下してチャットボットアプリを終了します。
-    
-    言語モデルが生成した **rmTagRange** 関数のコードをコピーして、作成した **webSearch.js** ファイルに貼り付け、キーボードの \[**Ctrl**\] + \[**S**\] キーを押下して保存します。
 
 2. 貼り付けたコードが正しく動作するか確認します。
 
@@ -306,9 +322,10 @@ HTML は本来ドキュメントの構造を定義するものであり、これ
 
     ```javascript
     getBodyContent('https://osamum.github.io/publish/').then(body => {
-        const removedStyle = rmTagRange(body, 'style');
-        const removedScript = rmTagRange(removedStyle, 'script');
-        console.log(removedScript);
+        let rmed_content = rmTagRange(bodyContent, 'style');
+        rmed_content = rmTagRange(rmed_content, 'script');
+        rmed_content = rmComment(rmed_content);
+        console.log(sharpenTags(rmed_content));
     });
     ```
 3. Visual Studio Code のターミナル画面で以下のコマンドを実行して関数が正しく動作するか確認します
