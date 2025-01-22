@@ -493,19 +493,20 @@ getBodyContent('https://osamum.github.io/publish/').then(body => {
 
     ```javascript
     //言語モデルが回答を生成するためのプロンプト
-    async function createRequestWithWebSearchResult(query){
+    async function createRequestWithWebSearchResult(query) {
     const webSerchResult = JSON.stringify(await getWebSearchResult(query));
-    return `[question] の内容に対し[content]内のJSONの内容を使用して回答してください\n` + 
-        `・ 各要素の snippet、content の内容を付き合わせ、信頼性の高い情報を採用してください\n` +
-        `・ 各要素の url のドメイン名からも信頼性を判断してください\n` + 
-        `・ 各要素の content 内の HTML タグの構造も参考にしてください\n` +
-        `・ 自信の回答に不必要に重複する文章がないようにしてください\n` + 
-        `[question]\n${query}\n\n[content]\n${webSerchResult}`
+        return `[question] の内容に対し[content]内のJSONの内容を使用して回答してください\n` +
+            `・ 各要素の snippet、content の内容を付き合わせ、信頼性の高い情報を採用してください\n` +
+            `・ 各要素の url のドメイン名からも信頼性を判断してください\n` +
+            `・ 各要素の content 内の HTML タグの構造も参考にしてください\n` +
+            `・ 自信の回答に不必要に重複する文章がないようにしてください\n` +
+            `・ [question]に対し[content]の内容に回答としてふさわしい情報かないと判断した場合にはその旨を回答してください\n` +
+            `[question]\n${query}\n\n[content]\n${webSerchResult}`
     }
 
     //言語モデルが回答を生成するための情報を生成
     async function getWebSearchResult(query) {
-        // Bing Search の検索結果を取得
+    // Bing Search の検索結果を取得
         const sitesList = (await getBingSearchResult(query)).value;
         const resultList = [];
         for (const site of sitesList) {
@@ -515,11 +516,14 @@ getBodyContent('https://osamum.github.io/publish/').then(body => {
             //Web ページの内容を取得
             const bodyContent = await getBodyContent(site.url);
             //不要なタグの削除
-            const removedStyle = rmTagRange(bodyContent, 'style');
-            const removedScript = rmTagRange(removedStyle, 'script');
-            const removedifarme = rmTagRange(removedStyle, 'iframe');
+            let rmed_content = rmTagRange(bodyContent, 'style');
+            rmed_content = rmTagRange(rmed_content, 'script');
+            rmed_content = rmTagRange(rmed_content, 'iframe');
+            rmed_content = rmTagRange(rmed_content, 'area');
+            rmed_content = rmTagRange(rmed_content, 'map');
+            rmed_content = rmCommentTag(rmed_content);
             //属性の削除
-            result.content = rmTagAttributes(removedifarme);
+            result.content = sharpenTags(rmed_content.replace(/[\r\n\t]/g, '').replace(/<div><\/div>/g, ''));
             resultList.push(result);
         }
         return resultList;
