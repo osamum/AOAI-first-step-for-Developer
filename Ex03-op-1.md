@@ -463,6 +463,7 @@ getBodyContent('https://osamum.github.io/publish/').then(body => {
 
     コンソールに検索結果が表示されれば正しく動作しています。
 
+    正常に動作が確認できたら検証用のコードを削除するかコメントアウトします。
 
     ここまでの手順で文字列から指定した HTML タグの範囲を除去する機能の実装が完了しました。
 
@@ -516,7 +517,7 @@ getBodyContent('https://osamum.github.io/publish/').then(body => {
             //Web ページの内容を取得
             const bodyContent = await getBodyContent(site.url);
             //コメントの削除
-            let rmed_content = rmCommentTag(bodyContent);　
+            let rmed_content = rmComment(bodyContent);　
             //不要なタグの削除
             rmed_content = rmTagRange(rmed_content, 'style');
             rmed_content = rmTagRange(rmed_content, 'script');
@@ -551,6 +552,9 @@ getBodyContent('https://osamum.github.io/publish/').then(body => {
     ```
 
     コンソールにプロンプトが表示されれば正しく動作しています。
+
+    ![プロンプトの表示](images/WebSearch_Make_prompt.png)
+
 
     正常動作が確認できたら検証用のコードを削除するかコメントアウトします。
 
