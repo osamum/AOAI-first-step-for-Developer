@@ -515,15 +515,20 @@ getBodyContent('https://osamum.github.io/publish/').then(body => {
             result.snippet = site.snippet;
             //Web ページの内容を取得
             const bodyContent = await getBodyContent(site.url);
+            //コメントの削除
+            let rmed_content = rmCommentTag(bodyContent);　
             //不要なタグの削除
-            let rmed_content = rmTagRange(bodyContent, 'style');
+            rmed_content = rmTagRange(rmed_content, 'style');
             rmed_content = rmTagRange(rmed_content, 'script');
             rmed_content = rmTagRange(rmed_content, 'iframe');
             rmed_content = rmTagRange(rmed_content, 'area');
             rmed_content = rmTagRange(rmed_content, 'map');
-            rmed_content = rmCommentTag(rmed_content);
-            //属性の削除
-            result.content = sharpenTags(rmed_content.replace(/[\r\n\t]/g, '').replace(/<div><\/div>/g, ''));
+            //空の div タグの削除
+            rmed_content = rmed_content.replace(/<div><\/div>/g, '');
+            //改行、タブの削除
+            rmed_content = rmed_content.replace(/[\r\n\t]/g, '');
+            //不要な属性の削除
+            result.content = sharpenTags(rmed_content);
             resultList.push(result);
         }
         return resultList;
