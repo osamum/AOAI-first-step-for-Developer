@@ -247,6 +247,7 @@ HTML は本来ドキュメントの構造を定義するものであり、これ
 
 たとえば、表を表す table タグやリストを表す ul や ol、dl タグを削除してしまうと、前後の文字列との関係が失われてしまうため言語モデルは Web コンテンツに書かれている本来の意味を理解できなくなってしまいます。 
 
+![Web コンテンツを分析する Copilot](images/Copilot_AnalyzeHTML.png)
 
 とくに[セマンティックな要素](https://en.wikipedia.org/wiki/Semantic_Web)で記述されたコンテンツはデータとして構造化されているため、マシンリーダブルであり、検索エンジンはもちろん言語モデルにとってもコンテンツの内容を理解するのに有用な情報です。
 
@@ -264,8 +265,6 @@ HTML は本来ドキュメントの構造を定義するものであり、これ
 
 <参考>
 * [HtmlRAG: HTML is Better Than Plain Text for Modeling Retrieved Knowledge in RAG Systems](https://arxiv.org/abs/2411.02959)
-
-* [HtmlRAG: HTML is Better Than Plain Text for Modeling Retrieval Results in RAG Systems](https://github.com/plageon/HtmlRAG)
 
 
 <br>
@@ -688,4 +687,57 @@ getBodyContent('https://osamum.github.io/publish/').then(body => {
 
 ## まとめ
 
-この演習では言語モデルの知識を拡張する手段として RAG の機能を追加する方法を学びました。
+この演習では言語モデルの知識を拡張する手段として Web 検索機能を実装しました。
+
+### 知識を参照する順番について
+
+今回の演習では RAG の提供する知識、言語モデルの知識、Web 検索の結果をまんべんなく使用できように RAG → 言語モデル → Web 検索の順番で知識を参照するように実装しましたが用途にあわせて適切な順番を選択することができます。
+
+たとえば言語モデルに知識量の少ない SLM(Small Language Model) 等を使用する場合には Web 検索の結果を先に参照させたほうが回答の精度が向上する可能性があります。
+
+### 検索クエリーについて
+
+Web 検索の精度については利用する検索エンジンの性能に依存しますが、検索クエリーを工夫するなどして改善できる余地があります。
+
+Bing Search は自然言語での検索をサポートしているため、この演習では言語モデルへのメッセージをそのまま検索クエリとして使用していますが、ユーザーから送られるメッセージはあくまでも言語モデルとの会話のための内容であるため、かならずしも検索クエリとして適切な内容であるとは限りません。検索とは異なる 意図 (intent) が含まれ、それが検索精度に影響を与える可能性がないわけではありません。
+
+また、キーワード検索しかサポートしない検索エンジンを使用する場合にはユーザーのメッセージから適切なキーワードを抽出する処理が必要になります。
+
+そういった場合は [Azure AI Language](https://learn.microsoft.com/ja-jp/azure/ai-services/language-service/) のキー フレーズ抽出等を使用して、ユーザーのメッセージからキーワードを抽出し、それを検索クエリとして使用するなどしてください。
+
+* [Azure AI Language のキー フレーズ抽出](https://learn.microsoft.com/ja-jp/azure/ai-services/language-service/key-phrase-extraction/overview)
+
+Web 検索の結果の精度が芳しくない場合は Web 検索サービスの各設定を確認することはもちろんですが、検索を実施する前に最適な検索クエリーを生成するための前処理を追加することをお勧めします。
+
+### Web コンテンツの信頼性について
+
+Web 検索機能の良いところは回答内容のソースを確認できることですが、ユーザーがいちいちソースを確認することなく信頼性の高い回答を返せることが理想です。
+
+今回の演習では URL から信頼性を測るように指示しています。URL に膨れるドメイン名は信頼性を測るための手がかりになりますが、それだけで信頼性を判断するのは難しい場合がありますので各自さまざまな工夫をされることをお勧めします。
+
+これについては、[Microsoft Copilot](https://copilot.microsoft.com/) や [OpenAI ChatGPT](https://chatgpt.com/)、[Google Gemini](https://gemini.google.com/app)、[X grok](https://x.com/i/grok) といった言語モデルを使用した各アシスタントサービスに以下の質問をしてみるのも良いヒントが得られるかもしれません。(※ただし、その回答が本当かどうかを確認する手段はありませんが)
+
+```text
+あなたはユーザーの質問に対し、Web を検索し、その検索結果から回答をすることができますが、参照した Web コンテンツの信頼性はどのように担保していますか?
+```
+## 参考
+
+* [Bing Search APIs, with your LLM](https://www.microsoft.com/bing/apis/llm)
+
+* [Use and Display requirements of Bing Search APIs, with your LLM](https://learn.microsoft.com/bing/search-apis/bing-web-search/use-display-requirements-llm)
+
+* [Bing Search API use and display requirements](https://learn.microsoft.com/bing/search-apis/bing-web-search/use-display-requirements)
+
+<br>
+
+## 次へ
+
+👉 [**演習 4 : 演習用ボット アプリケーションのフレームワークへの移植**](Ex04-0.md)
+
+<br>
+
+<hr>
+
+👈 [**演習 3. 7 : 演習用ボットをコンソール アシスタントとして利用する** ](Ex03-7.md)
+
+🏚️ [README に戻る](README.md)
