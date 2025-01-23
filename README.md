@@ -144,7 +144,7 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
         - [タスク 1 : HTTP Client ツールによる呼び出しの確認(Structured Outputs)](Ex03-6.md#%E3%82%BF%E3%82%B9%E3%82%AF-1--http-client-%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8Dstructured-outputs)
         - [タスク 2 : JavaScript コードからの呼び出しの確認](Ex03-6.md#%E3%82%BF%E3%82%B9%E3%82%AF-2--javascript-%E3%82%B3%E3%83%BC%E3%83%89%E3%81%8B%E3%82%89%E3%81%AE%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8D)
     - [3. 7 : 演習用ボットをコンソール アシスタントとして利用する](Ex03-7.md)
-    - [3.オプション : Web の情報を検索して回答する](Ex03-op-1.md)
+    - [3.オプション : Web を検索して回答する](Ex03-op-1.md)
         - [タスク 1 : HTTP Client ツールによる呼び出しの確認(Bing Web Search)](Ex03-op-1.md#%E3%82%BF%E3%82%B9%E3%82%AF-1---http-client-%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8Dbing-web-search)
         - [タスク 2 : Web 検索とコンテンツ取得を行う機能の実装](Ex03-op-1.md#%E3%82%BF%E3%82%B9%E3%82%AF-2--web-%E6%A4%9C%E7%B4%A2%E3%81%A8%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84%E5%8F%96%E5%BE%97%E3%82%92%E8%A1%8C%E3%81%86%E6%A9%9F%E8%83%BD%E3%81%AE%E5%AE%9F%E8%A3%85)
             - [タスク 2-1 : Web ページのコンテンツを取得する機能の実装](Ex03-op-1.md#%E3%82%BF%E3%82%B9%E3%82%AF-2-1--web-%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B%E6%A9%9F%E8%83%BD%E3%81%AE%E5%AE%9F%E8%A3%85)
