@@ -57,15 +57,21 @@ for (const attach of context.activity.attachments;) {
     const inputText = context.activity.text;
     //ユーザーから送信されたメッセージの attachments を取得
     const attachments = context.activity.attachments;
-    //attachments を列挙
-    for (const attach of attachments) {
-        //添付されたファイルが画像の場合は files 配列に追加
-        let fileType = attach.content.fileType;
-        if (/^(jpg|jpeg|png|gif)$/i.test(fileType)) files.push(attach.content.downloadUrl);
+    if (attachments) {
+        //attachments を列挙
+        for (const attach of attachments) {
+            //添付されたファイルが画像の場合は files 配列に追加
+            let fileType = attach.content.fileType;
+            if (/^(jpg|jpeg|png|gif)$/i.test(fileType)) files.push(attach.content.downloadUrl);
+        }
     }
     //ファイルだけ送信されてきた場合には無視
     if (inputText) {
-        await context.sendActivity(MessageFactory.text(await lm.sendMessage(await rag.findIndex(inputText), files)));
+        await context.sendActivity(
+            MessageFactory.text(
+                await if_Idontknow(context, inputText,await lm.sendMessage(await rag.findIndex(inputText),files))
+            )
+        );                
     }
     await next();
     ```
