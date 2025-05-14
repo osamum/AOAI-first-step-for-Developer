@@ -1,6 +1,6 @@
 # Change log
 
-### May 15, 2025
+## May 15, 2025
 
 * 新規に [Bing Sesrch のリソースが作成できない](https://azure.microsoft.com/en-us/updates?id=492574)ため、[演習 3. 6 : Web を検索して回答する](/Ex03-6.md) の以下の内容を変更しました。
 
