@@ -25,7 +25,7 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
 このハンズオンでは実際に環境構築とコーディングを行いながら以下の内容を学びます。
 
 - Azure OpenAI サービス リソースの作成
-- Azure OpenAI Studio からの GPT モデルのデプロイと基本的な操作方法
+- Azure AI Foundry からの GPT モデルのデプロイと基本的な操作方法
 - REST API を使用した GPT モデルの呼び出し
 - Node.js 用 Azure OpenAI ライブラリを使用したボットアプリケーションの作成
 - Function Calling を使用したボットアプリケーションへの任意の関数の統合
@@ -103,15 +103,15 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
 1. [**Azure Open AI リソースの作成**](Ex01-0.md)
 
     - [1.1 : Azure ポータルから Open AI リソースを作成する](Ex01-1.md)
-    - [1.2 : Azure OpenAI Studio から言語モデル gpt-4o-mini のデプロイ](Ex01-2.md)
-    - [1.3 : Azure OpenAI Studio から埋め込みモデル : text-embedding-ada-002 のデプロイ](Ex01-3.md)
-    - [1.4 : Azure OpenAI Studio から画像生成モデル : dall-e-3 のデプロイ](Ex01-4.md)
+    - [1.2 : Azure AI Foundry から言語モデル gpt-4o-mini のデプロイ](Ex01-2.md)
+    - [1.3 : Azure AI Foundry から埋め込みモデル : text-embedding-ada-002 のデプロイ](Ex01-3.md)
+    - [1.4 : Azure AI Foundry から画像生成モデル : dall-e-3 のデプロイ](Ex01-4.md)
 	    
-2. [**Azure OpenAI Studio からの AI モデルの利用**](Ex02-0.md)
+2. [**Azure AI Foundry からの AI モデルの利用**](Ex02-0.md)
     - [2.1 : システムメッセージとパラメーター設定](Ex02-1.md)
     - [2.2 :プロンプト エンジニアリング ](Ex02-2.md)
     - [2.3 : 独自データの追加](Ex02-3.md)
-    - [オプション : Azure OpenAI Studio で作成したチャットボットを Azure App Service にデプロイ](Ex02-3.md#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3--azure-openai-studio-%E3%81%A7%E4%BD%9C%E6%88%90%E3%81%97%E3%81%9F%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88%E3%82%92-azure-app-service-%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4)
+    - [オプション : Azure AI Foundry で作成したチャットボットを Azure App Service にデプロイ](Ex02-3.md#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3--azure-openai-studio-%E3%81%A7%E4%BD%9C%E6%88%90%E3%81%97%E3%81%9F%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%83%9C%E3%83%83%E3%83%88%E3%82%92-azure-app-service-%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4)
 
 3. [**Azure Open AI サービスとアプリケーションの統合**](Ex03-0.md)
     - [3.1 : Azure Open AI サービスの API 利用](Ex03-1.md)

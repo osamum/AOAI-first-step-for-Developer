@@ -1,6 +1,6 @@
-# 演習 2. オプション : Azure OpenAI Studio で作成したチャットボットを Azure App Service にデプロイ
+# 演習 2. オプション : Azure AI Foundry で作成したチャットボットを Azure App Service にデプロイ
 
-Azure OpenAI Studio のチャット プレイグランドで動作しているチャットボットを Web アプリや Teams アプリ、Copilot Studio の新しい Copilot としてデプロイすることができます。
+Azure AI Foundry のチャット プレイグランドで動作しているチャットボットを Web アプリや Teams アプリ、Copilot Studio の新しい Copilot としてデプロイすることができます。
 
 この手順では Web アプリとして Azure App Service にデプロイします。
 
@@ -41,7 +41,7 @@ Azure OpenAI Studio のチャット プレイグランドで動作している�
     
     この Web アプリケーションは Azure App Service の自動認証が有効になっており、Azure Active Directory よって保護されています。そのため同じ Azure Active Directory テナントにログインしているユーザーだけが使用することができます。
 
-ここまでの手順で、Azure OpenAI Studio で作成したチャットボットを Azure App Service にデプロイし、Web ブラウザーを介してユーザーがアクセスできるようになりました。
+ここまでの手順で、Azure AI Foundry で作成したチャットボットを Azure App Service にデプロイし、Web ブラウザーを介してユーザーがアクセスできるようになりました。
 
 この機能の詳細については以下のドキュメントをご参照ください。
 
