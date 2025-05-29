@@ -1,5 +1,16 @@
 # Change log
 
+## June 1, 2025
+
+* 新しい画像生成モデル gpt-image-1 が[制限付きアクセス パブリック プレビューとして利用可能になった](https://learn.microsoft.com/ja-jp/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#image-generation-models)ため、以下の演習を追加
+
+  - [演習 1.4 (preview) : 画像生成モデル gpt-image-1 のデプロイ](Ex01-4_gpt-image.md)
+  - 演習 3.3 - [タスク 3 (Preview) : GPT-image-1 を使用した画像生成モデルの利用](Ex03-3_gpt-image.md)
+- 新規に追加した 2 つの演習が関連する既存の以下の箇所にリンクを追加追加
+    - [演習 1. 4 : 画像生成モデルのデプロイ](Ex01-4.md)
+    - 演習 3.3 - [タスク 3 : 画像生成モデルの利用](Ex03-3.md#%E3%82%BF%E3%82%B9%E3%82%AF-3---%E7%94%BB%E5%83%8F%E7%94%9F%E6%88%90%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E5%88%A9%E7%94%A8) 
+- 全ドキュメント中の 「Azure OpenAI Studio」を「Azure AI Foundry」に変更  
+
 ## May 15, 2025
 
 * 新規に [Bing Sesrch のリソースが作成できない](https://azure.microsoft.com/en-us/updates?id=492574)ため、[演習 3. 6 : Web を検索して回答する](/Ex03-6.md) の以下の内容を変更しました。

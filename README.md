@@ -41,14 +41,17 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
 
 ## 最終改訂履歴
 
-### 2025 年 5 月 15 日
+### 2025 年 6 月 1 日
 
-* 新規に [Bing Sesrch のリソースが作成できない](https://azure.microsoft.com/en-us/updates?id=492574)ため、[演習 3. 6 : Web を検索して回答する](/Ex03-6.md) の以下の内容を変更しました。
+* 新しい画像生成モデル gpt-image-1 が[制限付きアクセス パブリック プレビューとして利用可能になった](https://learn.microsoft.com/ja-jp/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#image-generation-models)ため、以下の演習を追加
 
-    * [タスク 2-3 : Web 検索機能の実装と言語モデルへのメッセージの生成](#%E3%82%BF%E3%82%B9%E3%82%AF-2-3--web-%E6%A4%9C%E7%B4%A2%E6%A9%9F%E8%83%BD%E3%81%AE%E5%AE%9F%E8%A3%85%E3%81%A8%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB%E3%81%B8%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E3%81%AE%E7%94%9F%E6%88%90) の手順 3 のプロンプトを、任意の Web 検索サービスの API を指定するように変更
-    * 同手順のプロンプト内で使用していた関数名 `getBingSearchResult` を `webSearch` に変更
-    * 同手順 5 のコード内で呼び出される関数名を `webSearch` に変更し、返り値をオブジェクトから url の配列に変更
-    * 同コード内で参照していた返り値のオブジェクトの `snippet` プロパティ(Bing Search の結果固有) の行を削除
+  - [演習 1.4 (preview) : 画像生成モデル gpt-image-1 のデプロイ](Ex01-4_gpt-image.md)
+  - 演習 3.3 - [タスク 3 (Preview) : GPT-image-1 を使用した画像生成モデルの利用](Ex03-3_gpt-image.md)
+- 新規に追加した 2 つの演習が関連する既存の以下の箇所にリンクを追加追加
+    - [演習 1. 4 : 画像生成モデルのデプロイ](Ex01-4.md)
+    - 演習 3.3 - [タスク 3 : 画像生成モデルの利用](Ex03-3.md#%E3%82%BF%E3%82%B9%E3%82%AF-3---%E7%94%BB%E5%83%8F%E7%94%9F%E6%88%90%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E5%88%A9%E7%94%A8) 
+- 全ドキュメント中の 「Azure OpenAI Studio」を「Azure AI Foundry」に変更     
+  
 
 これまでの更新内容は[改訂履歴](changelog.md)を参照してください。
 
