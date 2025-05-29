@@ -286,8 +286,8 @@ gpt-image-1 モデルはテキストのプロンプトによる画像の生成�
     ![imgDecode.js の実行結果](images/result_imgDecode.png)
 
     ファイルのパスをクリックすると保存された画像ファイルが Visual Studio Code のエディターで開くので内容を確認します。
-
-    ![編集された画像ファイルの確認](images/editedImg_GPTimage-1.png)
+    
+    <img src="images/editedImg_GPTimage-1.png" alt="編集された画像ファイルの確認" width="700px">
 
 6. ターミナル画面で \[**Ctrl**\] + \[**C**\] キーを押下して imgDecode.js の実行を終了し、これからの作業での誤動作を防ぐために**前の手順で追加した確認用のコードを削除して**ください。その後、キーボードの \[**ctrl**\] + \[**S**\] を押下して imgDecode.js ファイルを保存してください。
 
