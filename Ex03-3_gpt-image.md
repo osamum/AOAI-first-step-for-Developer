@@ -36,7 +36,16 @@ Azure OpenAI サービスの言語モデルの関数呼び出しを行う際に�
         "n" : 1
     }
     ```
-    リクエストで指定しているパラメーターはプロンプト(prompt)と画像のサイズ(size: 1024x1024,1024x1536,1536x1024)と枚数(n: 1 ～ 10)、品質(quality:low,medium,high)、画像のフォーマット(output_format:PNG,JPEG)、圧縮(output_compression: 0～100)です。
+    リクエストで指定しているパラメーターは以下のとおりです。
+
+    | 項目 | 設定値 |
+    |-----|-----|
+    | ブロンプト | 任意の文言 |
+    | 画像のサイズ | 1024x1024 |
+    | 枚数 (n) | 1 ～ 10 |
+    | 品質 (quality) | low,medium,high |
+    | 画像のフォーマット (output_format) | PNG,JPEG |
+    | 圧縮 (output_compression) | 0 ～ 100 |
 
 3. ファイルに記述されている POST の上に \[**Send Request**\] と表示されるのでクリックします
 
