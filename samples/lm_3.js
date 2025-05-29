@@ -103,7 +103,7 @@ async function routingFunctions(name, args) {
             return await myFunctions.getCurrentDatetime();
             case "generate_image":
                 console.log("\nAI : 画像を生成しています。この処理には数秒かかる場合があります。");
-                return await imageGen.ganarateImage(args.prompt);
+                return await imageGen.generateImage(args.prompt);
         default:
         
         return '要求を満たす関数がありませんでした。';
