@@ -96,7 +96,7 @@ Base64 エンコードされた画像データは *.html ファイルでは以�
 
 2. 関数を定義するためのファイルを作成します
 
-    Visual Studio Code の画面左のツリービューからプロジェクトのルートが選択されている状態で \[**New File**\] アイコンをクリックして **imgDecode.js** という名前のファイルを作成します
+    Visual Studio Code の画面左のツリービューから**プロジェクトのルート**が選択されている状態で \[**New File**\] アイコンをクリックして **imgDecode.js** という名前のファイルを作成します
     
     ![imgDecode.js ファイルの作成](images/vscode_newFile_imageDecode.png)
 
@@ -134,7 +134,7 @@ Base64 エンコードされた画像データは *.html ファイルでは以�
 
 4. デコードした画像ファイルを保存するためのディレクトリを作成します
 
-    Visual Studio Code の画面左のツリービューからプロジェクトのルートが選択されている状態で \[**New Folder**\] アイコンをクリックして **images** という名前のフォルダーを作成します。
+    Visual Studio Code の画面左のツリービューから**プロジェクトのルート**が選択されている状態で \[**New Folder**\] アイコンをクリックして **images** という名前のフォルダーを作成します。
 
     ![images フォルダーの作成](images/vscode_newFolder_imagea.png)
 
