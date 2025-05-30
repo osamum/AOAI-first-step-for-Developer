@@ -71,7 +71,9 @@ Base64 エンコードされた画像データは *.html ファイルでは以�
 ```markdown
 ![画像の説明](data:image/png;base64,ここにBase64エンコードされた画像データが入ります)
 ```
-ここまでの手順で Azure OpenAI サービスの GPT-image-1 モデルで画像を生成する際の基本的なデータ構造とそのやり取りを確認しました。
+ここまでの手順で Azure OpenAI サービスの GPT-image-1 モデルで画像を生成する際の基本的なデータ構造とそのやり取りを確認しました。この作業で取得した Base64 データは次の手順で使用するのでウィンドウを閉じずに残しておいてください。
+
+
 
 なお、GPT-image-1 モデルの呼び出し方についての詳細は以下のドキュメントをご参照ください。
 
@@ -142,11 +144,8 @@ Base64 エンコードされた画像データは *.html ファイルでは以�
     //動作確認用のコード 
     const imageBase64 = '※ここにBase64エンコードされた画像データを貼り付け'; 
 
-    saveImage(imageBase64).then((path) => {
-        console.log('Image saved at:', path);
-    }).catch((error) => {
-        console.error('Error saving image:', error);
-    });
+    console.log(saveImage(imageBase64));
+
     ```
 
     変数 `imageBase64` には、演習 3-1 で取得した Base64 エンコードされた画像データを貼り付けます。
@@ -197,12 +196,7 @@ module.exports = {saveImage};
 
 //動作確認用のコード 
 const imageBase64 = ''; // ここにBase64エンコードされた画像データを入力
-
-saveImage(imageBase64).then((path) => {
-  console.log('Image saved at:', path);
-}).catch((error) => {
-  console.error('Error saving image:', error);
-});
+console.log(saveImage(imageBase64));
 ```
 
 <br>
@@ -218,14 +212,14 @@ gpt-image-1 モデルはテキストのプロンプトによる画像の生成�
 1. [演習 1. 4 : 画像生成モデル gpt-image-1 のデプロイ](Ex01-4_gpt-image.md#1-gpt-image-1-%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4) の手順で控えておいたエンドポイントのクエリーストリングの直前のディレクトリ名 `generations`　を `edits` に変更します。
     例えば、以下のように変更します。
 
-    \[変更前\]
-    
-    https://\<your-resource-name\>.cognitiveservices.azure.com/openai/deployments/gpt-image-1/**generations**?api-version=2025-04-01-preview
+    * \[変更前\]
+
+        `https://<your-resource-name>.cognitiveservices.azure.com/openai/deployments/gpt-image-1/`**generations**`?api-version=2025-04-01-preview`
     
 
-    \[変更後\]
+    * \[変更後\]
     
-    https://\<your-resource-name\>.cognitiveservices.azure.com/openai/deployments/gpt-image-1/**edits**?api-version=2025-04-01-preview
+        `https://<your-resource-name>.cognitiveservices.azure.com/openai/deployments/gpt-image-1/`**edits**`?api-version=2025-04-01-preview`
     
 
 2. [演習 3.1-2 : **HTTP Client ツールによる呼び出しの確認**](Ex03-1.md#%E3%82%BF%E3%82%B9%E3%82%AF-2-http-client-%E3%83%84%E3%83%BC%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%AE%E7%A2%BA%E8%AA%8D) で作成した **helloML.http** ファイルを開きます
