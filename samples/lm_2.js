@@ -7,7 +7,7 @@ const myFunctions = require('./funcs');
 
 const endpoint = process.env["AZURE_OPENAI_ENDPOINT"];
 const apiKey = process.env["AZURE_OPENAI_API_KEY"];
-const apiVersion = "2024-05-01-preview";
+const apiVersion = "2025-04-01-preview";
 const deployment = "gpt-4o-mini";
 //言語モデルとユーザーの会話を保持するための配列
 var messages = [

@@ -7,7 +7,7 @@ const imageGen = require('./imgGen');
 
 const endpoint = process.env["AZURE_OPENAI_ENDPOINT"] ;
 const apiKey = process.env["AZURE_OPENAI_API_KEY"] ;
-const apiVersion = "2024-05-01-preview";
+const apiVersion = "2025-04-01-preview";
 const deployment = "※ここに言語モデルのデプロイメント名を記述してください"; 
 //言語モデルとユーザーの会話を保持するための配列
 var messages = [

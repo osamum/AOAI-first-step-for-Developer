@@ -7,7 +7,7 @@ dotenv.config();
 
 const endpoint = process.env["AZURE_OPENAI_ENDPOINT"];
 const apiKey = process.env["AZURE_OPENAI_API_KEY"];
-const apiVersion = "2024-08-01-preview";
+const apiVersion = "2025-04-01-preview";
 const deployment = "ここにモデルのデプロイ名を記述";
 
 
@@ -34,7 +34,7 @@ var messages = [
 async function sendMessage(message) {
     if (message) messages.push({ role: 'user', content: message });
     const client = new AzureOpenAI({ endpoint, apiKey, apiVersion, deployment });
-    const result = await client.beta.chat.completions.parse({
+    const result = await client.chat.completions.parse({
         messages: messages,
         response_format: zodResponseFormat(RecepiResponse, 'RecepiResponse'),
     });
