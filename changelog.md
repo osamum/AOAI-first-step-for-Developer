@@ -1,5 +1,26 @@
 # Change log
 
+### October 20, 2025
+
+* [演習 3. 6 : Web を検索して回答する](Ex03-6.md) から Bing Web Search API に関する記述を削除し、代替の Web 検索 API を使用するように変更
+
+*  [演習 3. 7 : 言語モデルの応答に JSON を指定する](Ex03-7.md) にて以下の内容を変更
+   - [**Structured Outputs**](https://platform.openai.com/docs/guides/structured-outputs) が既に GA されており、gpt-4o のまま利用可能になったので、gpt-4o のデプロイ手順を削除
+   - メソッドのオブジェクトツリーから以下のように `beta` 名前空間を削除
+ 
+     ```javascript
+     // 変更前
+     const response = await client.beta.chat.completions.create({
+         ...
+     });
+
+     // 変更後
+     const response = await client.chat.completions.create({
+         ...
+     });
+     ``` 
+* [Azure AI Foundry](https://learn.microsoft.com/ja-jp/azure/ai-foundry/what-is-azure-ai-foundry) がホストする言語モデルに提供する OpenAI 互換 API に対応し、**OpenAI 以外の言語モデルでも動作する**ように演習用ボットアプリケーションのコードを微調整
+
 ## June 1, 2025
 
 * 新しい画像生成モデル gpt-image-1 が[制限付きアクセス パブリック プレビューとして利用可能になった](https://learn.microsoft.com/ja-jp/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#image-generation-models)ため、以下の演習を追加

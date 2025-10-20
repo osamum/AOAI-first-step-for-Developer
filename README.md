@@ -41,17 +41,26 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
 
 ## 最終改訂履歴
 
-### 2025 年 6 月 1 日
+### 2025 年 10 月 20 日
 
-* 新しい画像生成モデル gpt-image-1 が[制限付きアクセス パブリック プレビューとして利用可能になった](https://learn.microsoft.com/ja-jp/azure/ai-services/openai/concepts/models?tabs=global-standard%2Cstandard-chat-completions#image-generation-models)ため、以下の演習を追加
+* [演習 3. 6 : Web を検索して回答する](Ex03-6.md) から Bing Web Search API に関する記述を削除し、代替の Web 検索 API を使用するように変更
 
-  - [演習 1.4 (preview) : 画像生成モデル gpt-image-1 のデプロイ](Ex01-4_gpt-image.md)
-  - 演習 3.3 - [タスク 3 (Preview) : GPT-image-1 を使用した画像生成モデルの利用](Ex03-3_gpt-image.md)
-- 新規に追加した 2 つの演習が関連する既存の以下の箇所にリンクを追加追加
-    - [演習 1. 4 : 画像生成モデルのデプロイ](Ex01-4.md)
-    - 演習 3.3 - [タスク 3 : 画像生成モデルの利用](Ex03-3.md#%E3%82%BF%E3%82%B9%E3%82%AF-3---%E7%94%BB%E5%83%8F%E7%94%9F%E6%88%90%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E5%88%A9%E7%94%A8) 
-- 全ドキュメント中の 「Azure OpenAI Studio」を「Azure AI Foundry」に変更     
-  
+*  [演習 3. 7 : 言語モデルの応答に JSON を指定する](Ex03-7.md) にて以下の内容を変更
+   - [**Structured Outputs**](https://platform.openai.com/docs/guides/structured-outputs) が既に GA されており、gpt-4o のまま利用可能になったので、gpt-4o のデプロイ手順を削除
+   - メソッドのオブジェクトツリーから以下のように `beta` 名前空間を削除
+ 
+     ```javascript
+     // 変更前
+     const response = await client.beta.chat.completions.create({
+         ...
+     });
+
+     // 変更後
+     const response = await client.chat.completions.create({
+         ...
+     });
+     ``` 
+* [Azure AI Foundry](https://learn.microsoft.com/ja-jp/azure/ai-foundry/what-is-azure-ai-foundry) がホストする言語モデルに提供する OpenAI 互換 API に対応し、**OpenAI 以外の言語モデルでも動作する**ように演習用ボットアプリケーションのコードを微調整
 
 これまでの更新内容は[改訂履歴](changelog.md)を参照してください。
 
@@ -91,10 +100,10 @@ Windows の \[**Start**\] ボタンのように、このハンズオンを実施
 
 - [**Node.js**](https://nodejs.org/ja/)
 
-    - v22.11.0(LTS)バージョン (2024 年 11 月現在の最新の LTS) 
+    - v22.20.0(LTS)バージョン (2025 年 10 月現在の最新の LTS) 
 
 
-    > もし、V22.11.0 で動作しない場合は、v20.17.0 もしくは v20.18.0 の LTS バージョンでお試しください。なお、ローカル環境で Node.js のバージョンを切り替える必要がある場合には Windows では [**nvm-windows**](https://github.com/coreybutler/nvm-windows) 、Mac では [nvm](https://github.com/nvm-sh/nvm) を使用すると便利です。
+    > もし、V22.20.0 で動作しない場合は、v20.17.0 もしくは v20.18.0 の LTS バージョンでお試しください。なお、ローカル環境で Node.js のバージョンを切り替える必要がある場合には Windows では [**nvm-windows**](https://github.com/coreybutler/nvm-windows) 、Mac では [nvm](https://github.com/nvm-sh/nvm) を使用すると便利です。
     > 詳しくは以下のドキュメントを参照してください。
 
     - [**nvm-windows のインストール**](https://learn.microsoft.com/ja-jp/windows/dev-environment/javascript/nodejs-on-windows#install-nvm-windows-nodejs-and-npm)
